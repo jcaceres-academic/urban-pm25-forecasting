@@ -1,0 +1,164 @@
+---
+title: "Scripts and Evaluation Workflow"
+subtitle: "Reproducible Python pipeline for Urban PM2.5 imbalance-aware classification"
+format:
+  html:
+    toc: true
+    theme: cosmo
+---
+
+## Purpose of this section
+
+This page documents the Python scripts that implement the imbalance-aware evaluation framework developed in this project.
+
+The objective is not algorithmic benchmarking, but to provide a transparent and modular analytical architecture for evaluating classification models under:
+
+- Temporal constraints
+- Structural class imbalance
+- Operational computational cost
+
+All scripts are openly available in the repository and can be executed independently.
+
+## Methodological position
+
+The workflow is structured around the following principles:
+
+- Chronological integrity (no random splits)
+- Explicit imbalance analysis
+- Separation between preprocessing, training, and evaluation
+- Cost-aware performance assessment
+- Full reproducibility using open Python tools
+
+The scripts are modular, traceable, and designed for deployment-oriented evaluation rather than experimental optimisation.
+
+
+## Script overview
+
+### 01 - Data acquisition (EEA / OpenAQ)
+**`eea_read.py`**   
+
+This script handle the acquisition of raw PM2.5 data from official sources.
+
+**Main objectives**
+- Load hourly PM2.5 measurements.
+- Standardise column formats.
+- Validate temporal consistency.
+- Store structured raw datasets.
+
+They establish the empirical foundation of the pipeline.
+
+### 02 - Preprocessing and harmonisation
+**`preprocess_pm25_lisbon.py`**
+
+Transforms raw hourly observations into analysis-ready daily data.
+
+**Main objectives**
+- Daily aggregation.
+- WHO-based class definition.
+- Missing value inspection.
+- Label encoding (Low / Moderate / High).
+- Export of consolidated parquet files.
+
+This step defines the structural imbalance observed in the High category.
+
+### 03 — Classical modelling and evaluation  
+**`model_ready.py`**
+
+Prepares the dataset for classification modelling.
+
+**Main objectives**
+- Feature construction.
+- Temporal ordering enforcement.
+- Train/Test split:
+  - Train: 2021–2022
+  - Test: 2023
+- Final matrix preparation for modelling.
+
+Chronological integrity is strictly preserved.
+
+### 04 - Model training
+**`entrenamiento.py`**
+
+Implements supervised classification models:
+- Logistic Regression
+- Random Forest
+- XGBoost
+- Multi-Layer Perceptron (MLP)
+
+**Main objetives**
+- Fit models on training data.
+- Compute predictions on 2023 test data.
+- Measure training and inference time.
+- Export raw prediction outputs.
+
+The script prioritises structured evaluation rather than hyperparameter search.
+
+### 05 - Metrics extraction and export
+**`extraer_metricas.py`**     **`exportar_metricas_balanced.py`**
+
+These scripts compute imbalance-aware metrics:
+- Accuracy
+- Macro-F1
+- Balanced Accuracy
+- Class-specific Precision / Recall / F1 (High class)
+- Computational cost (training + inference time)
+
+Outputs are formatted for:
+- Publication tables
+- Web visualisation
+- Trade-off analysis
+
+### 06 - Visual analytics
+
+**`plot_radar_balanced.py`**
+**`plot_ranking_scenarios.py`**
+**`tradeoff_map.py`**
+**`generate_tradeoff_map_pm25_lisbon_2021_2023.py`**
+
+These scripts produce the graphical synthesis of the evaluation:
+- Radar comparison under balanced scenario
+- Multi-criteria ranking across decision scenarios
+- Performance–Cost trade-off map
+- Efficient frontier visualisation
+
+Figures are exported in:
+
+- figures_publication/ (300 dpi TIFF)
+- images/ (PNG for web rendering)
+
+
+## Execution logic
+
+Scripts are intended to be executed sequentially:
+
+1. Data acquisition
+2. Preprocessing
+3. Model-ready dataset construction
+4. Model training
+5. Metric extraction
+6. Visual analytics
+
+This structure ensures full traceability and reproducibility.
+
+## Reproducibility and transparency
+
+All scripts:
+- Are fully documented.
+- Rely exclusively on open-source tools.
+- Produce results programmatically.
+- Can be executed independently.
+- Require no manual data manipulation
+
+The computational environment is managed using Conda.
+
+## Final remark
+
+This script-based architecture reflects a deployment-oriented evaluation philosophy, where:
+- Temporal integrity is preserved
+- Rare-event detection is prioritised
+- Computational efficiency is quantified
+- Model trade-offs are explicitly visualised
+
+The objective is methodological clarity and operational realism, not technological novelty.
+
+The structure is intended for both academic research and advanced teaching in applied data science.

@@ -1,0 +1,170 @@
+[
+  {
+    "objectID": "index.html#direct-access",
+    "href": "index.html#direct-access",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🔗 Direct access",
+    "text": "🔗 Direct access\n\n🧪 Methodological scripts and pipeline implementation\n💻 Reproducible notebook\n📄 Associated article"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🧠 Overview",
+    "text": "🧠 Overview\nThis repository hosts the open, reproducible materials supporting a methodological study on urban PM2.5 classification under structural imbalance and deployment constraints.\nRather than introducing a new predictive model, the project proposes a coherent evaluation framework designed for real-world environmental monitoring contexts, where:\n\nRare high-pollution episodes are critical\nTemporal structure must be preserved\nComputational feasibility matters\n\nThe case study focuses on Lisbon (2021–2023), using official data from the European Environment Agency (EEA)."
+  },
+  {
+    "objectID": "index.html#research-motivation",
+    "href": "index.html#research-motivation",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🎯 Research motivation",
+    "text": "🎯 Research motivation\nModel comparison in environmental machine learning often relies on:\n\nRandom train–test splits that ignore temporal structure,\nAccuracy-driven benchmarking,\nLimited consideration of rare-event detection,\nNeglect of computational cost in operational contexts.\n\nThese practices can distort the interpretation of model performance when applied to real urban monitoring systems.\nThis project responds by integrating:\n\nTime-aware validation (Train: 2021–2022 | Test: 2023),\nImbalance-sensitive metrics (Balanced Accuracy, Macro-F1),\nExplicit computational cost analysis (training + inference),\nA multi-criteria performance–cost comparison.\n\nThe emphasis is methodological coherence rather than algorithmic novelty."
+  },
+  {
+    "objectID": "index.html#reproducible-methodological-workflow",
+    "href": "index.html#reproducible-methodological-workflow",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🧩 Reproducible methodological workflow",
+    "text": "🧩 Reproducible methodological workflow\nThe analytical workflow follows a structured and sequential pipeline:\n\n\n\n\n\nFig. 1. Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.\n\nData acquisition and harmonisation Aggregation of hourly PM2.5 observations into daily values and classification under WHO thresholds.\nImbalance analysis Examination of class distribution and structural asymmetry in rare high-pollution events.\nModel training under temporal validation Logistic Regression, Random Forest, XGBoost, and MLP trained on 2021–2022 data.\nImbalance-aware evaluation Balanced Accuracy, Macro-F1, and class-specific recall for the High category.\nPerformance–Cost trade-off assessment Integration of computational cost as a formal evaluation dimension.\n\nThis workflow reflects a deployment-oriented evaluation stance, not a technology-driven benchmark."
+  },
+  {
+    "objectID": "index.html#analytical-philosophy",
+    "href": "index.html#analytical-philosophy",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🧭 Analytical philosophy",
+    "text": "🧭 Analytical philosophy\nThe framework is guided by the following principles: - Chronological integrity: no random splits are applied to temporal data. - Imbalance awareness: rare-event detection is prioritised over aggregate accuracy. - Operational realism: computational cost is treated as an evaluation criterion. - Reproducibility by design: all results are generated programmatically. - Comparative transparency: model trade-offs are explicitly visualised.\nThis perspective aligns with the broader doctoral research programme in applied data science and sustainable urban analytics."
+  },
+  {
+    "objectID": "index.html#repository-structure",
+    "href": "index.html#repository-structure",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🗂️ Repository structure",
+    "text": "🗂️ Repository structure\nurban-pm25-imbalance-evaluation/\n   ├── docs/                      # Rendered Quarto website (GitHub Pages)\n   │   ├── index.html\n   │   └── notebook.html\n   ├── data/                      # Consolidated parquet datasets\n   ├── figures/                   # High-resolution publication figures\n   ├── images/                    # Web-optimised PNG assets\n   ├── scripts/                   # Python scripts implementing the evaluation pipeline\n   ├── index.qmd\n   ├── notebook.qmd\n   ├── _quarto.yml\n   ├── LICENSE\n   └── README.md"
+  },
+  {
+    "objectID": "index.html#technologies-used",
+    "href": "index.html#technologies-used",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "⚙️ Technologies Used",
+    "text": "⚙️ Technologies Used\n\n\n\nCategory\nTools / Packages\n\n\n\n\nProgramming\nPython 3.11 + · Quarto\n\n\nData Handling\npandas · pyarrow · numpy\n\n\nVisualisation\nmatplotlib · seaborn\n\n\nModelling\nscikit-learn · xgboost\n\n\nEvaluation\nBalanced Accuracy · Macro-F1 · Precision/Recall\n\n\nReproducibility\nGit · GitHub Pages · Conda · Zenodo\n\n\n\n![](images/Figure1_TradeOff_Map_300dpi.png){fig-align=\"center\" width=\"90%\"}\nFig. 1. Performance–Cost trade-off across models, illustrating the efficient frontier under imbalance-sensitive evaluation (Lisbon, 2021–2023)."
+  },
+  {
+    "objectID": "index.html#relation-to-the-doctoral-thesis",
+    "href": "index.html#relation-to-the-doctoral-thesis",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "🎓 Relation to the doctoral thesis",
+    "text": "🎓 Relation to the doctoral thesis\nThis project constitutes a methodological extension of ongoing doctoral research in applied data science. It complements prior work on urban PM2.5 modelling by shifting the focus from predictive benchmarking to evaluation coherence under structural constraints. The repository illustrates how a research line evolves toward more operationally grounded analytical frameworks."
+  },
+  {
+    "objectID": "index.html#citation-article",
+    "href": "index.html#citation-article",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "📚 Citation (Article)",
+    "text": "📚 Citation (Article)\nIf you reuse or adapt this resource, please cite as:\n\nShu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., & Carrasco, R. A. (2026).\nRethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.\n(Under submission)."
+  },
+  {
+    "objectID": "index.html#dataset-citation",
+    "href": "index.html#dataset-citation",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "📦 Dataset Citation",
+    "text": "📦 Dataset Citation\nThe bibliographic reference dataset associated with this project is available at:\n\nCáceres-Tello, J. (2026).\nBibliographic dataset for urban PM2.5 imbalance evaluation study.\nZenodo. https://doi.org/10.5281/zenodo.18734761"
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "⚖️ License",
+    "text": "⚖️ License\nCode and notebooks: Creative Commons Attribution 4.0 (CC BY 4.0) Data (if reused): CC0 1.0 Public Domain Dedication"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "📬 Contact",
+    "text": "📬 Contact\nJesús Cáceres-Tello Department of Computer Systems and Computing Universidad Complutense de Madrid\n📧 jcaceres.academic@gmail.com\n📧 jescacer@ucm.es\n⬅️ Back to my main page\nThis repository supports open, transparent, and reproducible research in environmental data science and STEM education."
+  },
+  {
+    "objectID": "index.html#performancecost-trade-off",
+    "href": "index.html#performancecost-trade-off",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "📊 Performance–Cost trade-off",
+    "text": "📊 Performance–Cost trade-off\nModel comparison integrates predictive performance with computational cost, treating efficiency as a formal evaluation dimension.\n\n\n\n\n\nFig. 2. Performance–Cost trade-off across models (Lisbon, 2021–2023). The plot illustrates the efficiency frontier under imbalance-sensitive evaluation criteria."
+  },
+  {
+    "objectID": "notebook.html#analytical-context",
+    "href": "notebook.html#analytical-context",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "1.1 Analytical context",
+    "text": "1.1 Analytical context\nThe evaluation framework begins with the acquisition and harmonisation of daily PM2.5 observations obtained from the European Environment Agency (EEA) for Lisbon (2021–2023).\nThe objective of this stage is to ensure chronological integrity, consistency of measurements, and transparent preprocessing before any modelling procedure.\n\n\n\n\n\nFig. 1. Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment."
+  },
+  {
+    "objectID": "notebook.html#class-distribution-and-imbalance-structure",
+    "href": "notebook.html#class-distribution-and-imbalance-structure",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "1.2 Class distribution and imbalance structure",
+    "text": "1.2 Class distribution and imbalance structure\nDaily PM2.5 concentrations are categorised into Low, Moderate, and High classes according to WHO-based thresholds. The resulting distribution is structurally asymmetric.\n\n\n\n\n\nTable 1. Distribution of daily PM2.5 classes under WHO-based thresholds.\nHigh-pollution days represent a small fraction of total observations. This imbalance implies that aggregate accuracy may mask poor detection of rare but critical events. Consequently, the evaluation framework explicitly accounts for class asymmetry."
+  },
+  {
+    "objectID": "notebook.html#analytical-synthesis",
+    "href": "notebook.html#analytical-synthesis",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "7.1 Analytical synthesis",
+    "text": "7.1 Analytical synthesis\nThe evaluation results demonstrate that model comparison under structural imbalance cannot rely on a single aggregate metric.\nSeveral key patterns emerge:\n\nModels with similar Accuracy may differ substantially in Balanced Accuracy.\nRare-event recall varies significantly across algorithms.\nComputational cost meaningfully alters the ranking of models.\nThe efficient frontier identifies models that achieve optimal performance–cost compromises.\n\nThese findings reinforce the central argument of the study: evaluation coherence is more important than algorithmic complexity."
+  },
+  {
+    "objectID": "notebook.html#educational-implications",
+    "href": "notebook.html#educational-implications",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "7.2 Educational implications",
+    "text": "7.2 Educational implications\nFrom a methodological perspective, this case study illustrates that:\n\nTemporal integrity must be preserved in environmental datasets.\nRare-event detection requires explicit metric selection.\nDeployment constraints should be integrated into evaluation frameworks.\nMulti-criteria comparison prevents misleading single-metric optimisation.\n\nThe framework therefore serves as both an analytical tool and a teaching resource."
+  },
+  {
+    "objectID": "scripts.html",
+    "href": "scripts.html",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "",
+    "text": "This page documents the Python scripts that implement the imbalance-aware evaluation framework developed in this project.\nThe objective is not algorithmic benchmarking, but to provide a transparent and modular analytical architecture for evaluating classification models under:\n\nTemporal constraints\nStructural class imbalance\nOperational computational cost\n\nAll scripts are openly available in the repository and can be executed independently."
+  },
+  {
+    "objectID": "scripts.html#purpose-of-this-section",
+    "href": "scripts.html#purpose-of-this-section",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "",
+    "text": "This page documents the Python scripts that implement the imbalance-aware evaluation framework developed in this project.\nThe objective is not algorithmic benchmarking, but to provide a transparent and modular analytical architecture for evaluating classification models under:\n\nTemporal constraints\nStructural class imbalance\nOperational computational cost\n\nAll scripts are openly available in the repository and can be executed independently."
+  },
+  {
+    "objectID": "scripts.html#methodological-position",
+    "href": "scripts.html#methodological-position",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "Methodological position",
+    "text": "Methodological position\nThe workflow is structured around the following principles:\n\nChronological integrity (no random splits)\nExplicit imbalance analysis\nSeparation between preprocessing, training, and evaluation\nCost-aware performance assessment\nFull reproducibility using open Python tools\n\nThe scripts are modular, traceable, and designed for deployment-oriented evaluation rather than experimental optimisation."
+  },
+  {
+    "objectID": "scripts.html#script-overview",
+    "href": "scripts.html#script-overview",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "Script overview",
+    "text": "Script overview\n\n01 - Data acquisition (EEA / OpenAQ)\neea_read.py\nThis script handle the acquisition of raw PM2.5 data from official sources.\nMain objectives - Load hourly PM2.5 measurements. - Standardise column formats. - Validate temporal consistency. - Store structured raw datasets.\nThey establish the empirical foundation of the pipeline.\n\n\n02 - Preprocessing and harmonisation\npreprocess_pm25_lisbon.py\nTransforms raw hourly observations into analysis-ready daily data.\nMain objectives - Daily aggregation. - WHO-based class definition. - Missing value inspection. - Label encoding (Low / Moderate / High). - Export of consolidated parquet files.\nThis step defines the structural imbalance observed in the High category.\n\n\n03 — Classical modelling and evaluation\nmodel_ready.py\nPrepares the dataset for classification modelling.\nMain objectives - Feature construction. - Temporal ordering enforcement. - Train/Test split: - Train: 2021–2022 - Test: 2023 - Final matrix preparation for modelling.\nChronological integrity is strictly preserved.\n\n\n04 - Model training\nentrenamiento.py\nImplements supervised classification models: - Logistic Regression - Random Forest - XGBoost - Multi-Layer Perceptron (MLP)\nMain objetives - Fit models on training data. - Compute predictions on 2023 test data. - Measure training and inference time. - Export raw prediction outputs.\nThe script prioritises structured evaluation rather than hyperparameter search.\n\n\n05 - Metrics extraction and export\nextraer_metricas.py exportar_metricas_balanced.py\nThese scripts compute imbalance-aware metrics: - Accuracy - Macro-F1 - Balanced Accuracy - Class-specific Precision / Recall / F1 (High class) - Computational cost (training + inference time)\nOutputs are formatted for: - Publication tables - Web visualisation - Trade-off analysis\n\n\n06 - Visual analytics\nplot_radar_balanced.py plot_ranking_scenarios.py tradeoff_map.py generate_tradeoff_map_pm25_lisbon_2021_2023.py\nThese scripts produce the graphical synthesis of the evaluation: - Radar comparison under balanced scenario - Multi-criteria ranking across decision scenarios - Performance–Cost trade-off map - Efficient frontier visualisation\nFigures are exported in:\n\nfigures_publication/ (300 dpi TIFF)\nimages/ (PNG for web rendering)"
+  },
+  {
+    "objectID": "scripts.html#execution-logic",
+    "href": "scripts.html#execution-logic",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "Execution logic",
+    "text": "Execution logic\nScripts are intended to be executed sequentially:\n\nData acquisition\nPreprocessing\nModel-ready dataset construction\nModel training\nMetric extraction\nVisual analytics\n\nThis structure ensures full traceability and reproducibility."
+  },
+  {
+    "objectID": "scripts.html#reproducibility-and-transparency",
+    "href": "scripts.html#reproducibility-and-transparency",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "Reproducibility and transparency",
+    "text": "Reproducibility and transparency\nAll scripts: - Are fully documented. - Rely exclusively on open-source tools. - Produce results programmatically. - Can be executed independently. - Require no manual data manipulation\nThe computational environment is managed using Conda."
+  },
+  {
+    "objectID": "scripts.html#final-remark",
+    "href": "scripts.html#final-remark",
+    "title": "Scripts and Evaluation Workflow",
+    "section": "Final remark",
+    "text": "Final remark\nThis script-based architecture reflects a deployment-oriented evaluation philosophy, where: - Temporal integrity is preserved - Rare-event detection is prioritised - Computational efficiency is quantified - Model trade-offs are explicitly visualised\nThe objective is methodological clarity and operational realism, not technological novelty.\nThe structure is intended for both academic research and advanced teaching in applied data science."
+  }
+]

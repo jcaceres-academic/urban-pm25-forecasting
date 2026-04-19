@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Urban PM2.5 Imbalance Evaluation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ca95841a3693384d6c4ddac3ef14b6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Urban PM2.5 Imbalance Evaluation</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" target="_self" aria-current="page"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./article.pdf" target="_blank"> <i class="bi bi-file-earmark-text" role="img">
+</i> 
+<span class="menu-text">Manuscript (PDF)</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./notebook.html" target="_self"> <i class="bi bi-laptop" role="img">
+</i> 
+<span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./scripts.html" target="_self"> <i class="bi bi-code-slash" role="img">
+</i> 
+<span class="menu-text">Scripts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#direct-access" id="toc-direct-access" class="nav-link active" data-scroll-target="#direct-access">🔗 <strong>Direct access</strong></a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">🧠 Overview</a></li>
+  <li><a href="#research-motivation" id="toc-research-motivation" class="nav-link" data-scroll-target="#research-motivation">🎯 Research motivation</a></li>
+  <li><a href="#reproducible-methodological-workflow" id="toc-reproducible-methodological-workflow" class="nav-link" data-scroll-target="#reproducible-methodological-workflow">🧩 Reproducible methodological workflow</a></li>
+  <li><a href="#analytical-philosophy" id="toc-analytical-philosophy" class="nav-link" data-scroll-target="#analytical-philosophy">🧭 Analytical philosophy</a></li>
+  <li><a href="#performancecost-trade-off" id="toc-performancecost-trade-off" class="nav-link" data-scroll-target="#performancecost-trade-off">📊 Performance–Cost trade-off</a></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">🗂️ Repository structure</a></li>
+  <li><a href="#technologies-used" id="toc-technologies-used" class="nav-link" data-scroll-target="#technologies-used">⚙️ Technologies Used</a></li>
+  <li><a href="#relation-to-the-doctoral-thesis" id="toc-relation-to-the-doctoral-thesis" class="nav-link" data-scroll-target="#relation-to-the-doctoral-thesis">🎓 Relation to the doctoral thesis</a></li>
+  <li><a href="#citation-article" id="toc-citation-article" class="nav-link" data-scroll-target="#citation-article">📚 Citation (Article)</a></li>
+  <li><a href="#dataset-citation" id="toc-dataset-citation" class="nav-link" data-scroll-target="#dataset-citation">📦 Dataset Citation</a></li>
+  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">⚖️ License</a></li>
+  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">📬 Contact</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Urban PM2.5 Imbalance Evaluation</h1>
+<p class="subtitle lead">Temporal validation, class imbalance and performance–cost assessment framework</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" class="img-fluid" alt="License: CC BY 4.0"></a> <a href="https://quarto.org/"><img src="https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg" class="img-fluid" alt="Rendered with Quarto"></a> <a href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation"><img src="https://img.shields.io/badge/GitHub-Repository-black.svg" class="img-fluid" alt="GitHub Repo"></a> <a href="https://doi.org/10.5281/zenodo.18734761"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18734761-blue.svg" class="img-fluid" alt="DOI"></a></p>
+<hr>
+<section id="direct-access" class="level2">
+<h2 class="anchored" data-anchor-id="direct-access">🔗 <strong>Direct access</strong></h2>
+<ul>
+<li>🧪 <a href="scripts.html">Methodological scripts and pipeline implementation</a></li>
+<li>💻 <a href="notebook.html">Reproducible notebook</a></li>
+<li>📄 <a href="">Associated article</a></li>
+</ul>
+</section>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">🧠 Overview</h2>
+<p>This repository hosts the open, reproducible materials supporting a methodological study on urban PM2.5 classification under structural imbalance and deployment constraints.</p>
+<p>Rather than introducing a new predictive model, the project proposes a coherent evaluation framework designed for real-world environmental monitoring contexts, where:</p>
+<ul>
+<li>Rare high-pollution episodes are critical</li>
+<li>Temporal structure must be preserved</li>
+<li>Computational feasibility matters</li>
+</ul>
+<p>The case study focuses on Lisbon (2021–2023), using official data from the European Environment Agency (EEA).</p>
+</section>
+<section id="research-motivation" class="level2">
+<h2 class="anchored" data-anchor-id="research-motivation">🎯 Research motivation</h2>
+<p>Model comparison in environmental machine learning often relies on:</p>
+<ul>
+<li>Random train–test splits that ignore temporal structure,</li>
+<li>Accuracy-driven benchmarking,</li>
+<li>Limited consideration of rare-event detection,</li>
+<li>Neglect of computational cost in operational contexts.</li>
+</ul>
+<p>These practices can distort the interpretation of model performance when applied to real urban monitoring systems.</p>
+<p>This project responds by integrating:</p>
+<ul>
+<li>Time-aware validation (Train: 2021–2022 | Test: 2023),</li>
+<li>Imbalance-sensitive metrics (Balanced Accuracy, Macro-F1),</li>
+<li>Explicit computational cost analysis (training + inference),</li>
+<li>A multi-criteria performance–cost comparison.</li>
+</ul>
+<p>The emphasis is methodological coherence rather than algorithmic novelty.</p>
+</section>
+<section id="reproducible-methodological-workflow" class="level2">
+<h2 class="anchored" data-anchor-id="reproducible-methodological-workflow">🧩 Reproducible methodological workflow</h2>
+<p>The analytical workflow follows a structured and sequential pipeline:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig1_pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 1.</strong> Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.</p>
+<ol type="1">
+<li><p><strong>Data acquisition and harmonisation</strong> Aggregation of hourly PM2.5 observations into daily values and classification under WHO thresholds.</p></li>
+<li><p><strong>Imbalance analysis</strong> Examination of class distribution and structural asymmetry in rare high-pollution events.</p></li>
+<li><p><strong>Model training under temporal validation</strong> Logistic Regression, Random Forest, XGBoost, and MLP trained on 2021–2022 data.</p></li>
+<li><p><strong>Imbalance-aware evaluation</strong> Balanced Accuracy, Macro-F1, and class-specific recall for the High category.</p></li>
+<li><p><strong>Performance–Cost trade-off assessment</strong> Integration of computational cost as a formal evaluation dimension.</p></li>
+</ol>
+<p>This workflow reflects a deployment-oriented evaluation stance, not a technology-driven benchmark.</p>
+</section>
+<section id="analytical-philosophy" class="level2">
+<h2 class="anchored" data-anchor-id="analytical-philosophy">🧭 Analytical philosophy</h2>
+<p>The framework is guided by the following principles: - Chronological integrity: no random splits are applied to temporal data. - Imbalance awareness: rare-event detection is prioritised over aggregate accuracy. - Operational realism: computational cost is treated as an evaluation criterion. - Reproducibility by design: all results are generated programmatically. - Comparative transparency: model trade-offs are explicitly visualised.</p>
+<p>This perspective aligns with the broader doctoral research programme in applied data science and sustainable urban analytics.</p>
+</section>
+<section id="performancecost-trade-off" class="level2">
+<h2 class="anchored" data-anchor-id="performancecost-trade-off">📊 Performance–Cost trade-off</h2>
+<p>Model comparison integrates predictive performance with computational cost, treating efficiency as a formal evaluation dimension.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig4_Performance_Cost_Map.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 2.</strong> Performance–Cost trade-off across models (Lisbon, 2021–2023). The plot illustrates the efficiency frontier under imbalance-sensitive evaluation criteria.</p>
+</section>
+<section id="repository-structure" class="level2">
+<h2 class="anchored" data-anchor-id="repository-structure">🗂️ Repository structure</h2>
+<pre class="text"><code>urban-pm25-imbalance-evaluation/
+   ├── docs/                      # Rendered Quarto website (GitHub Pages)
+   │   ├── index.html
+   │   └── notebook.html
+   ├── data/                      # Consolidated parquet datasets
+   ├── figures/                   # High-resolution publication figures
+   ├── images/                    # Web-optimised PNG assets
+   ├── scripts/                   # Python scripts implementing the evaluation pipeline
+   ├── index.qmd
+   ├── notebook.qmd
+   ├── _quarto.yml
+   ├── LICENSE
+   └── README.md</code></pre>
+</section>
+<section id="technologies-used" class="level2">
+<h2 class="anchored" data-anchor-id="technologies-used">⚙️ Technologies Used</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Category</th>
+<th>Tools / Packages</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Programming</strong></td>
+<td><a href="https://www.python.org/">Python</a> 3.11 + · <a href="https://quarto.org/">Quarto</a></td>
+</tr>
+<tr class="even">
+<td><strong>Data Handling</strong></td>
+<td><code>pandas</code> · <code>pyarrow</code> · <code>numpy</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Visualisation</strong></td>
+<td><code>matplotlib</code> · <code>seaborn</code></td>
+</tr>
+<tr class="even">
+<td><strong>Modelling</strong></td>
+<td><code>scikit-learn</code> · <code>xgboost</code></td>
+</tr>
+<tr class="odd">
+<td><strong>Evaluation</strong></td>
+<td><code>Balanced Accuracy</code> · <code>Macro-F1</code> · <code>Precision/Recall</code></td>
+</tr>
+<tr class="even">
+<td><strong>Reproducibility</strong></td>
+<td><code>Git</code> · <code>GitHub Pages</code> · <code>Conda</code> · <code>Zenodo</code></td>
+</tr>
+</tbody>
+</table>
+<pre><code>![](images/Figure1_TradeOff_Map_300dpi.png){fig-align="center" width="90%"}</code></pre>
+<p><strong>Fig. 1.</strong> Performance–Cost trade-off across models, illustrating the efficient frontier under imbalance-sensitive evaluation (Lisbon, 2021–2023).</p>
+</section>
+<section id="relation-to-the-doctoral-thesis" class="level2">
+<h2 class="anchored" data-anchor-id="relation-to-the-doctoral-thesis">🎓 Relation to the doctoral thesis</h2>
+<p>This project constitutes a methodological extension of ongoing doctoral research in applied data science. It complements prior work on urban PM2.5 modelling by shifting the focus from predictive benchmarking to evaluation coherence under structural constraints. The repository illustrates how a research line evolves toward more operationally grounded analytical frameworks.</p>
+</section>
+<section id="citation-article" class="level2">
+<h2 class="anchored" data-anchor-id="citation-article">📚 Citation (Article)</h2>
+<p>If you reuse or adapt this resource, please cite as:</p>
+<blockquote class="blockquote">
+<p>Shu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., &amp; Carrasco, R. A. (2026).<br>
+Rethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.<br>
+(Under submission).</p>
+</blockquote>
+</section>
+<section id="dataset-citation" class="level2">
+<h2 class="anchored" data-anchor-id="dataset-citation">📦 Dataset Citation</h2>
+<p>The bibliographic reference dataset associated with this project is available at:</p>
+<blockquote class="blockquote">
+<p>Cáceres-Tello, J. (2026).<br>
+Bibliographic dataset for urban PM2.5 imbalance evaluation study.<br>
+Zenodo. https://doi.org/10.5281/zenodo.18734761</p>
+</blockquote>
+</section>
+<section id="license" class="level2">
+<h2 class="anchored" data-anchor-id="license">⚖️ License</h2>
+<p>Code and notebooks: Creative Commons Attribution 4.0 (CC BY 4.0) Data (if reused): CC0 1.0 Public Domain Dedication</p>
+</section>
+<section id="contact" class="level2">
+<h2 class="anchored" data-anchor-id="contact">📬 Contact</h2>
+<p>Jesús Cáceres-Tello Department of Computer Systems and Computing Universidad Complutense de Madrid</p>
+<p>📧 <a href="mailto:jcaceres.academic@gmail.com">jcaceres.academic@gmail.com</a><br>
+📧 <a href="mailto:jescacer@ucm.es">jescacer@ucm.es</a></p>
+<p>⬅️ <a href="https://jcaceres-academic.github.io">Back to my main page</a></p>
+<p>This repository supports open, transparent, and reproducible research in environmental data science and STEM education.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-imbalance-evaluation\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>
