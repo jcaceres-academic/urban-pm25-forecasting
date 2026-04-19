@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.27">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ziwei Shu">
+<meta name="author" content="Jesús Cáceres-Tello">
+<meta name="author" content="José Javier Galán-Hernández">
+<meta name="author" content="Orlando Lima Rua">
+<meta name="author" content="Ramón Alberto Carrasco">
+
+<title>Urban PM2.5 Imbalance Evaluation</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ed96de9b727972fe78a7b5d16c58bf87.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-5ca95841a3693384d6c4ddac3ef14b6b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<style>html{ scroll-behavior: smooth; }</style>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="floating nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Urban PM2.5 Imbalance Evaluation</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html" target="_self"> <i class="bi bi-house" role="img">
+</i> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./article.pdf" target="_blank"> <i class="bi bi-file-earmark-text" role="img">
+</i> 
+<span class="menu-text">Manuscript (PDF)</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./notebook.html" target="_self" aria-current="page"> <i class="bi bi-laptop" role="img">
+</i> 
+<span class="menu-text">Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./scripts.html" target="_self"> <i class="bi bi-code-slash" role="img">
+</i> 
+<span class="menu-text">Scripts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation" target="_blank"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text">GitHub</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul class="collapse">
+  <li><a href="#data-acquisition-and-processing" id="toc-data-acquisition-and-processing" class="nav-link active" data-scroll-target="#data-acquisition-and-processing"><span class="header-section-number">1</span> 📂 Data acquisition and processing</a>
+  <ul class="collapse">
+  <li><a href="#analytical-context" id="toc-analytical-context" class="nav-link" data-scroll-target="#analytical-context"><span class="header-section-number">1.1</span> Analytical context</a></li>
+  <li><a href="#class-distribution-and-imbalance-structure" id="toc-class-distribution-and-imbalance-structure" class="nav-link" data-scroll-target="#class-distribution-and-imbalance-structure"><span class="header-section-number">1.2</span> Class distribution and imbalance structure</a></li>
+  </ul></li>
+  <li><a href="#structural-and-temporal-considerations" id="toc-structural-and-temporal-considerations" class="nav-link" data-scroll-target="#structural-and-temporal-considerations"><span class="header-section-number">2</span> 🔍 Structural and temporal considerations</a></li>
+  <li><a href="#imbalance-aware-modelling-and-evaluation" id="toc-imbalance-aware-modelling-and-evaluation" class="nav-link" data-scroll-target="#imbalance-aware-modelling-and-evaluation"><span class="header-section-number">3</span> 📐 Imbalance-aware modelling and evaluation</a></li>
+  <li><a href="#multi-criteria-comparison-across-scenarios" id="toc-multi-criteria-comparison-across-scenarios" class="nav-link" data-scroll-target="#multi-criteria-comparison-across-scenarios"><span class="header-section-number">4</span> 📊 Multi-criteria comparison across scenarios</a></li>
+  <li><a href="#performancecost-trade-off-assessment" id="toc-performancecost-trade-off-assessment" class="nav-link" data-scroll-target="#performancecost-trade-off-assessment"><span class="header-section-number">5</span> ⚖️ Performance–Cost trade-off assessment</a></li>
+  <li><a href="#methodological-implications" id="toc-methodological-implications" class="nav-link" data-scroll-target="#methodological-implications"><span class="header-section-number">6</span> 🧭 Methodological implications</a></li>
+  <li><a href="#interpretation-of-results" id="toc-interpretation-of-results" class="nav-link" data-scroll-target="#interpretation-of-results"><span class="header-section-number">7</span> 🧠 Interpretation of results</a>
+  <ul class="collapse">
+  <li><a href="#analytical-synthesis" id="toc-analytical-synthesis" class="nav-link" data-scroll-target="#analytical-synthesis"><span class="header-section-number">7.1</span> Analytical synthesis</a></li>
+  <li><a href="#educational-implications" id="toc-educational-implications" class="nav-link" data-scroll-target="#educational-implications"><span class="header-section-number">7.2</span> Educational implications</a></li>
+  </ul></li>
+  <li><a href="#repository-and-citation" id="toc-repository-and-citation" class="nav-link" data-scroll-target="#repository-and-citation"><span class="header-section-number">8</span> 🌐 Repository and Citation</a></li>
+  </ul>
+</nav>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Urban PM2.5 Imbalance Evaluation</h1>
+<p class="subtitle lead">A reproducible and imbalance-aware evaluation framework for urban air quality classification</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Ziwei Shu </p>
+             <p>Jesús Cáceres-Tello </p>
+             <p>José Javier Galán-Hernández </p>
+             <p>Orlando Lima Rua </p>
+             <p>Ramón Alberto Carrasco </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" class="img-fluid" alt="License: CC BY 4.0"></a> <a href="https://quarto.org/"><img src="https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg" class="img-fluid" alt="Rendered with Quarto"></a> <a href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation"><img src="https://img.shields.io/badge/GitHub-Repository-black.svg" class="img-fluid" alt="GitHub Repo"></a> <a href="https://doi.org/10.5281/zenodo.18734761"><img src="https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18734761-blue.svg" class="img-fluid" alt="DOI"></a></p>
+<section id="data-acquisition-and-processing" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> 📂 Data acquisition and processing</h1>
+<section id="analytical-context" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="analytical-context"><span class="header-section-number">1.1</span> Analytical context</h2>
+<p>The evaluation framework begins with the acquisition and harmonisation of daily PM2.5 observations obtained from the European Environment Agency (EEA) for Lisbon (2021–2023).</p>
+<p>The objective of this stage is to ensure chronological integrity, consistency of measurements, and transparent preprocessing before any modelling procedure.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig1_pipeline.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 1.</strong> Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.</p>
+</section>
+<section id="class-distribution-and-imbalance-structure" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="class-distribution-and-imbalance-structure"><span class="header-section-number">1.2</span> Class distribution and imbalance structure</h2>
+<p>Daily PM2.5 concentrations are categorised into Low, Moderate, and High classes according to WHO-based thresholds. The resulting distribution is structurally asymmetric.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Table1_class_distribution.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p><strong>Table 1.</strong> Distribution of daily PM2.5 classes under WHO-based thresholds.</p>
+<p>High-pollution days represent a small fraction of total observations. This imbalance implies that aggregate accuracy may mask poor detection of rare but critical events. Consequently, the evaluation framework explicitly accounts for class asymmetry.</p>
+</section>
+</section>
+<section id="structural-and-temporal-considerations" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> 🔍 Structural and temporal considerations</h1>
+<p>Environmental time series exhibit strong chronological dependence. Random train–test splits may introduce information leakage and produce overly optimistic performance estimates.</p>
+<p>To preserve realistic deployment conditions, a strict temporal partition is applied:</p>
+<ul>
+<li>Training period: 2021–2022</li>
+<li>Testing period: 2023</li>
+</ul>
+<p>This design ensures that model evaluation reflects prospective rather than retrospective performance.</p>
+</section>
+<section id="imbalance-aware-modelling-and-evaluation" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> 📐 Imbalance-aware modelling and evaluation</h1>
+<p>The objective of this modelling stage is not to propose a novel algorithm, but to compare representative classifiers under consistent temporal and imbalance-aware conditions.</p>
+<p>Performance is assessed using both aggregate and class-sensitive metrics.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Table2_model_metrics.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p><strong>Table 2.</strong>. Global performance metrics and computational cost per model.</p>
+<p>Accuracy is reported for completeness but not prioritised. Balanced Accuracy and Macro-F1 provide a more reliable summary under structural imbalance.</p>
+<p>Given the public health relevance of high-pollution episodes, specific attention is given to class-level metrics for the High category.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Table3_high_class_metrics.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p><strong>Table 3</strong>. Precision, Recall, and F1-score for the High pollution class.</p>
+<p>These results demonstrate that models with comparable global metrics may differ substantially in rare-event detection capacity.</p>
+</section>
+<section id="multi-criteria-comparison-across-scenarios" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> 📊 Multi-criteria comparison across scenarios</h1>
+<p>Analytical context</p>
+<p>Model comparison depends on the evaluation priorities adopted. Three decision scenarios are considered: - Performance-driven - Efficiency-driven - Balanced</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig2_radar_balanced_models.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 2</strong>. Radar comparison of models under the balanced scenario.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig3_ranking_scenarios_plot.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 3</strong>. Model rankings across alternative evaluation scenarios.</p>
+<p>The variation in rankings highlights the importance of explicitly defining evaluation criteria rather than relying on single-metric optimisation.</p>
+</section>
+<section id="performancecost-trade-off-assessment" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> ⚖️ Performance–Cost trade-off assessment</h1>
+<p>Operational deployment requires integrating predictive performance with computational feasibility. Training and inference time are therefore incorporated as formal evaluation dimensions.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Fig4_Performance_Cost_Map.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:70.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 4</strong>. Performance–Cost trade-off map illustrating the efficiency frontier under imbalance-sensitive evaluation.</p>
+<p>Models located on the efficiency frontier represent optimal compromises between predictive quality and computational cost.</p>
+</section>
+<section id="methodological-implications" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> 🧭 Methodological implications</h1>
+<p>This educational walkthrough leads to several key conclusions:</p>
+<ol type="1">
+<li>Structural class imbalance distorts naive accuracy-based evaluation.</li>
+<li>Temporal validation is essential in environmental monitoring contexts.</li>
+<li>Rare-event recall is a critical performance dimension.</li>
+<li>Computational cost meaningfully alters model selection decisions.</li>
+<li>Evaluation coherence outweighs algorithmic novelty.</li>
+</ol>
+</section>
+<section id="interpretation-of-results" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> 🧠 Interpretation of results</h1>
+<section id="analytical-synthesis" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="analytical-synthesis"><span class="header-section-number">7.1</span> Analytical synthesis</h2>
+<p>The evaluation results demonstrate that model comparison under structural imbalance cannot rely on a single aggregate metric.</p>
+<p>Several key patterns emerge:</p>
+<ul>
+<li>Models with similar Accuracy may differ substantially in Balanced Accuracy.</li>
+<li>Rare-event recall varies significantly across algorithms.</li>
+<li>Computational cost meaningfully alters the ranking of models.</li>
+<li>The efficient frontier identifies models that achieve optimal performance–cost compromises.</li>
+</ul>
+<p>These findings reinforce the central argument of the study: evaluation coherence is more important than algorithmic complexity.</p>
+</section>
+<section id="educational-implications" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="educational-implications"><span class="header-section-number">7.2</span> Educational implications</h2>
+<p>From a methodological perspective, this case study illustrates that:</p>
+<ul>
+<li>Temporal integrity must be preserved in environmental datasets.</li>
+<li>Rare-event detection requires explicit metric selection.</li>
+<li>Deployment constraints should be integrated into evaluation frameworks.</li>
+<li>Multi-criteria comparison prevents misleading single-metric optimisation.</li>
+</ul>
+<p>The framework therefore serves as both an analytical tool and a teaching resource.</p>
+</section>
+</section>
+<section id="repository-and-citation" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> 🌐 Repository and Citation</h1>
+<p>All datasets, scripts, and visualisations used in this study are openly available at: ➡️ https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation</p>
+<p>The bibliographic dataset associated with this project is archived in Zenodo: ➡️ https://doi.org/10.5281/zenodo.18734761</p>
+<p>When citing the associated research article, please use:</p>
+<blockquote class="blockquote">
+<p>Shu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., &amp; Carrasco, R. A. (2026). Rethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.</p>
+</blockquote>
+<p>Manuscript submitted for publication. Open research materials available at: https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-imbalance-evaluation\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+<script src="site_libs/quarto-html/zenscroll-min.js"></script>
+</body></html>

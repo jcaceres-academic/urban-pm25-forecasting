@@ -1,0 +1,56 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Urban PM2.5 Imbalance Evaluation"
+  site-url: https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/
+  description: "A reproducible evaluation framework for urban PM2.5 classification under class imbalance and operational constraints"
+  page-navigation: true
+  search: false
+
+  navbar:
+    background: "#7A0026"
+    pinned: true
+    right:
+      - icon: house
+        text: "Home"
+        href: index.html
+        target: "_self"
+
+      - icon: file-earmark-text
+        text: "Manuscript (PDF)"
+        href: article.pdf
+        target: "_blank"
+
+      - icon: laptop
+        text: "Notebook"
+        href: notebook.html
+        target: "_self"
+
+      - icon: code-slash
+        text: "Scripts"
+        href: scripts.html
+        target: "_self"
+
+      - icon: github
+        text: "GitHub"
+        href: https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation
+        target: "_blank"
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+    toc-location: left
+    toc-title: "On this page"
+    toc-depth: 2
+    smooth-scroll: true
+    code-copy: true
+    code-overflow: wrap
+    number-sections: false
+    lang: en
+    html-math-method: mathjax
+
+editor: visual
