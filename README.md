@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+# urban-pm25-forecasting
+Forecasting urban PM2.5 concentrations using hybrid Prophet–LSTM models
+=======
+>>>>>>> temp-save
 # Urban PM2.5 Imbalance Evaluation
 
 Open, reproducible research materials supporting the article:
@@ -46,3 +53,7 @@ Creative Commons Attribution 4.0 (CC BY 4.0)
 ➡️ For the full project description, workflow, references, and educational context,  
 see the **project website** linked above.
 
+<<<<<<< HEAD
+=======
+>>>>>>> 517d203 (Initial version)
+>>>>>>> temp-save
