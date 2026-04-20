@@ -21,7 +21,6 @@ execute:
 ---
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)
 [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
 [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
 
