@@ -217,3 +217,4 @@ data/raw/
 
 # Large CSV files
 *.csv
+.Rproj.user

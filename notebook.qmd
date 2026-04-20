@@ -1,12 +1,9 @@
 ---
-title: "Urban PM2.5 Imbalance Evaluation"
-subtitle: "A reproducible and imbalance-aware evaluation framework for urban air quality classification"
+title: "PM2.5 Forecasting Workflow"
+subtitle: "Reproducible implementation of the Prophet–LSTM hybrid modelling framework"
 author:
-  - name: "Ziwei Shu"
   - name: "Jesús Cáceres-Tello"
   - name: "José Javier Galán-Hernández"
-  - name: "Orlando Lima Rua"
-  - name: "Ramón Alberto Carrasco"
 lang: en
 link-citations: true
 format:
@@ -23,143 +20,136 @@ execute:
   engine: python
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18734761-blue.svg)](https://doi.org/10.5281/zenodo.18734761)
-
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)\
+[![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076) [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
 
 # 📂 Data acquisition and processing
 
 ## Analytical context
 
-The evaluation framework begins with the acquisition and harmonisation of daily PM2.5 observations obtained from the European Environment Agency (EEA) for Lisbon (2021–2023).
+This notebook implements the reproducible workflow underlying the PM2.5 forecasting study in Madrid. The analysis is based on daily concentration measurements obtained from the urban monitoring network and organised as a structured time series.
 
-The objective of this stage is to ensure chronological integrity, consistency of measurements, and transparent preprocessing before any modelling procedure.
+At this stage, the objective is not to extract insight but to ensure that the data are consistent, chronologically ordered, and suitable for modelling. Particular attention is given to temporal integrity and the handling of missing observations, as these aspects directly affect downstream performance.
 
-![](images/Fig1_pipeline.png){fig-align="center" width="60%"}
+## Monitoring stations
 
-**Fig. 1.** Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.
+![](images/Fig_PM25_Stations_Madrid.png){fig-align="center" width="85%"}
 
-## Class distribution and imbalance structure
+**Fig. 1.** Spatial distribution of PM2.5 monitoring stations in Madrid.
 
-Daily PM2.5 concentrations are categorised into Low, Moderate, and High classes according to WHO-based thresholds. The resulting distribution is structurally asymmetric.
+## Spatial variability
 
-![](images/Table1_class_distribution.png){fig-align="center" width="70%"}
+![](images/PM25_LevelsDistrict_3.png){fig-align="center" width="70%"}
 
-**Table 1.** Distribution of daily PM2.5 classes under WHO-based thresholds.
+**Fig. 2.** Spatial distribution of PM2.5 concentration levels across districts in Madrid.
 
-High-pollution days represent a small fraction of total observations. This imbalance implies that aggregate accuracy may mask poor detection of rare but critical events. Consequently, the evaluation framework explicitly accounts for class asymmetry.
+Although the forecasting task is approached as a temporal problem, spatial variability provides important contextual information. Differences across districts reflect heterogeneous urban dynamics, which indirectly influence the temporal behaviour captured by the models.
 
-# 🔍 Structural and temporal considerations
+# 🔍 Exploratory data analysis
 
-Environmental time series exhibit strong chronological dependence. Random train–test splits may introduce information leakage and produce overly optimistic performance estimates.
+## Analytical workflow
 
-To preserve realistic deployment conditions, a strict temporal partition is applied:
+![](images/Fig_Crisp_DM_model.png){fig-align="center" width="65%"}
 
-- Training period: 2021–2022
-- Testing period: 2023
+**Fig. 3.** Conceptual workflow of the PM2.5 forecasting process, from data acquisition to model evaluation.
 
-This design ensures that model evaluation reflects prospective rather than retrospective performance.
+This schematic representation summarises the structure of the analytical pipeline. While simplified, it reflects the sequential nature of the workflow implemented in this study, where each stage builds upon the previous one.
 
-# 📐 Imbalance-aware modelling and evaluation
+## Temporal structure
 
-The objective of this modelling stage is not to propose a novel algorithm, but to compare representative classifiers under consistent temporal and imbalance-aware conditions.
+Before introducing predictive models, it is necessary to understand the temporal characteristics of the data. The PM2.5 signal combines short-term variability with broader seasonal patterns, reflecting both local dynamics and environmental conditions.
 
-Performance is assessed using both aggregate and class-sensitive metrics.
+This stage provides a structural understanding of the series rather than an exhaustive exploratory analysis.
 
-![](images/Table2_model_metrics.png){fig-align="center" width="80%"}
+------------------------------------------------------------------------
 
-**Table 2.**. Global performance metrics and computational cost per model.
+# 📐 Prophet modelling
 
-Accuracy is reported for completeness but not prioritised. Balanced Accuracy and Macro-F1 provide a more reliable summary under structural imbalance.
+## Analytical context
 
-Given the public health relevance of high-pollution episodes, specific attention is given to class-level metrics for the High category.
+Prophet is used as an initial modelling approach due to its ability to decompose the time series into interpretable components such as trend and seasonality. This provides a transparent baseline for understanding the dominant structure of the data.
 
-![](images/Table3_high_class_metrics.png){fig-align="center" width="70%"}
+Rather than focusing on optimisation, the objective is to establish a stable and interpretable reference model.
 
-**Table 3**. Precision, Recall, and F1-score for the High pollution class.
+------------------------------------------------------------------------
 
-These results demonstrate that models with comparable global metrics may differ substantially in rare-event detection capacity.
+# 🤖 LSTM modelling
 
-# 📊 Multi-criteria comparison across scenarios
-Analytical context
+## Analytical context
 
-Model comparison depends on the evaluation priorities adopted. Three decision scenarios are considered:
-- Performance-driven
-- Efficiency-driven
-- Balanced
+To complement the statistical structure captured by Prophet, LSTM networks are introduced to model nonlinear temporal dependencies. These architectures are particularly suited to capturing patterns that evolve over time and are not easily represented through additive components.
 
-![](images/Fig2_radar_balanced_models.png){fig-align="center" width="70%"}
+The LSTM model focuses on short-term dynamics and local fluctuations.
 
-**Fig. 2**. Radar comparison of models under the balanced scenario.
+------------------------------------------------------------------------
 
-![](images/Fig3_ranking_scenarios_plot.png){fig-align="center" width="70%"}
+# 🔗 Hybrid Prophet–LSTM integration
 
-**Fig. 3**. Model rankings across alternative evaluation scenarios.
+## Analytical context
 
-The variation in rankings highlights the importance of explicitly defining evaluation criteria rather than relying on single-metric optimisation.
+The hybrid modelling strategy combines the strengths of both approaches. Prophet captures the global structure of the series, while LSTM refines the prediction by learning nonlinear residual behaviour.
 
-# ⚖️ Performance–Cost trade-off assessment
+This integration reflects a complementary modelling philosophy, where interpretability and flexibility are balanced.
 
-Operational deployment requires integrating predictive performance with computational feasibility. Training and inference time are therefore incorporated as formal evaluation dimensions.
+------------------------------------------------------------------------
 
-![](images/Fig4_Performance_Cost_Map.png){fig-align="center" width="70%"}
+# 📈 Forecasting results
 
-**Fig. 4**. Performance–Cost trade-off map illustrating the efficiency frontier under imbalance-sensitive evaluation.
+![](images/Fig_Forecast_Madrid_Prophet_LSTM.png){fig-align="center" width="90%"}
 
-Models located on the efficiency frontier represent optimal compromises between predictive quality and computational cost.
+**Fig. 4.** PM2.5 forecasting results using the hybrid Prophet–LSTM model.
+
+## Interpretation
+
+The hybrid model produces forecasts that align coherently with observed data, capturing both the underlying trend and short-term variability. This behaviour illustrates the advantage of combining statistical decomposition with sequence-based learning.
+
+------------------------------------------------------------------------
+
+# ⚖️ Model evaluation
+
+## Evaluation strategy
+
+Model performance is assessed using standard forecasting error metrics, ensuring that evaluation reflects realistic predictive conditions. A time-based validation strategy is applied to preserve chronological integrity.
+
+The objective is not to maximise performance metrics, but to ensure methodological coherence and interpretability.
+
+------------------------------------------------------------------------
 
 # 🧭 Methodological implications
 
-This educational walkthrough leads to several key conclusions:
+The workflow presented in this notebook highlights several important aspects. Preserving temporal structure is essential in environmental forecasting, as random sampling would distort the evaluation process.
 
-1. Structural class imbalance distorts naive accuracy-based evaluation.
-2. Temporal validation is essential in environmental monitoring contexts.
-3. Rare-event recall is a critical performance dimension.
-4. Computational cost meaningfully alters model selection decisions.
-5. Evaluation coherence outweighs algorithmic novelty.
+In addition, hybrid approaches demonstrate that combining models can be more effective than relying on a single paradigm, particularly when different aspects of the signal must be captured.
 
+Finally, the use of a fully reproducible pipeline ensures transparency and facilitates reuse in future research.
 
-# 🧠 Interpretation of results
+------------------------------------------------------------------------
 
-## Analytical synthesis
+# 🌐 Repository and citation
 
-The evaluation results demonstrate that model comparison under structural imbalance cannot rely on a single aggregate metric.
+All code, data, and materials are openly available at:
 
-Several key patterns emerge:
+➡️ https://github.com/jcaceres-academic/urban-pm25-forecasting
 
-- Models with similar Accuracy may differ substantially in Balanced Accuracy.
-- Rare-event recall varies significantly across algorithms.
-- Computational cost meaningfully alters the ranking of models.
-- The efficient frontier identifies models that achieve optimal performance–cost compromises.
+Zenodo archive:
 
-These findings reinforce the central argument of the study: evaluation coherence is more important than algorithmic complexity.
+➡️ https://doi.org/10.5281/zenodo.19659982
 
-## Educational implications
+## Citation
 
-From a methodological perspective, this case study illustrates that:
+> Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).\
+> Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\
+> *AppliedMath*, 4(4), 1428–1452.\
+> https://doi.org/10.3390/appliedmath4040076
 
-- Temporal integrity must be preserved in environmental datasets.
-- Rare-event detection requires explicit metric selection.
-- Deployment constraints should be integrated into evaluation frameworks.
-- Multi-criteria comparison prevents misleading single-metric optimisation.
+## 📬 Contact
 
-The framework therefore serves as both an analytical tool and a teaching resource.
+Jesús Cáceres Tello
+Complutense University of Madrid
 
+📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com)
+📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
 
-# 🌐 Repository and Citation
+⬅️ <https://jcaceres-academic.github.io>
 
-All datasets, scripts, and visualisations used in this study are openly available at:
-➡️  https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation
-
-The bibliographic dataset associated with this project is archived in Zenodo:
-➡️ https://doi.org/10.5281/zenodo.18734761
-
-When citing the associated research article, please use:
-
-> Shu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., & Carrasco, R. A. (2026).
-Rethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.
-
-Manuscript submitted for publication. Open research materials available at:
-https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation
+This repository promotes **open, transparent, and reproducible research** in environmental data science.

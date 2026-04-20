@@ -1,129 +1,10 @@
 [
   {
-    "objectID": "index.html#direct-access",
-    "href": "index.html#direct-access",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🔗 Direct access",
-    "text": "🔗 Direct access\n\n🧪 Methodological scripts and pipeline implementation\n💻 Reproducible notebook\n📄 Associated article"
-  },
-  {
-    "objectID": "index.html#overview",
-    "href": "index.html#overview",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🧠 Overview",
-    "text": "🧠 Overview\nThis repository hosts the open, reproducible materials supporting a methodological study on urban PM2.5 classification under structural imbalance and deployment constraints.\nRather than introducing a new predictive model, the project proposes a coherent evaluation framework designed for real-world environmental monitoring contexts, where:\n\nRare high-pollution episodes are critical\nTemporal structure must be preserved\nComputational feasibility matters\n\nThe case study focuses on Lisbon (2021–2023), using official data from the European Environment Agency (EEA)."
-  },
-  {
-    "objectID": "index.html#research-motivation",
-    "href": "index.html#research-motivation",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🎯 Research motivation",
-    "text": "🎯 Research motivation\nModel comparison in environmental machine learning often relies on:\n\nRandom train–test splits that ignore temporal structure,\nAccuracy-driven benchmarking,\nLimited consideration of rare-event detection,\nNeglect of computational cost in operational contexts.\n\nThese practices can distort the interpretation of model performance when applied to real urban monitoring systems.\nThis project responds by integrating:\n\nTime-aware validation (Train: 2021–2022 | Test: 2023),\nImbalance-sensitive metrics (Balanced Accuracy, Macro-F1),\nExplicit computational cost analysis (training + inference),\nA multi-criteria performance–cost comparison.\n\nThe emphasis is methodological coherence rather than algorithmic novelty."
-  },
-  {
-    "objectID": "index.html#reproducible-methodological-workflow",
-    "href": "index.html#reproducible-methodological-workflow",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🧩 Reproducible methodological workflow",
-    "text": "🧩 Reproducible methodological workflow\nThe analytical workflow follows a structured and sequential pipeline:\n\n\n\n\n\nFig. 1. Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.\n\nData acquisition and harmonisation Aggregation of hourly PM2.5 observations into daily values and classification under WHO thresholds.\nImbalance analysis Examination of class distribution and structural asymmetry in rare high-pollution events.\nModel training under temporal validation Logistic Regression, Random Forest, XGBoost, and MLP trained on 2021–2022 data.\nImbalance-aware evaluation Balanced Accuracy, Macro-F1, and class-specific recall for the High category.\nPerformance–Cost trade-off assessment Integration of computational cost as a formal evaluation dimension.\n\nThis workflow reflects a deployment-oriented evaluation stance, not a technology-driven benchmark."
-  },
-  {
-    "objectID": "index.html#analytical-philosophy",
-    "href": "index.html#analytical-philosophy",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🧭 Analytical philosophy",
-    "text": "🧭 Analytical philosophy\nThe framework is guided by the following principles: - Chronological integrity: no random splits are applied to temporal data. - Imbalance awareness: rare-event detection is prioritised over aggregate accuracy. - Operational realism: computational cost is treated as an evaluation criterion. - Reproducibility by design: all results are generated programmatically. - Comparative transparency: model trade-offs are explicitly visualised.\nThis perspective aligns with the broader doctoral research programme in applied data science and sustainable urban analytics."
-  },
-  {
-    "objectID": "index.html#repository-structure",
-    "href": "index.html#repository-structure",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🗂️ Repository structure",
-    "text": "🗂️ Repository structure\nurban-pm25-imbalance-evaluation/\n   ├── docs/                      # Rendered Quarto website (GitHub Pages)\n   │   ├── index.html\n   │   └── notebook.html\n   ├── data/                      # Consolidated parquet datasets\n   ├── figures/                   # High-resolution publication figures\n   ├── images/                    # Web-optimised PNG assets\n   ├── scripts/                   # Python scripts implementing the evaluation pipeline\n   ├── index.qmd\n   ├── notebook.qmd\n   ├── _quarto.yml\n   ├── LICENSE\n   └── README.md"
-  },
-  {
-    "objectID": "index.html#technologies-used",
-    "href": "index.html#technologies-used",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "⚙️ Technologies Used",
-    "text": "⚙️ Technologies Used\n\n\n\nCategory\nTools / Packages\n\n\n\n\nProgramming\nPython 3.11 + · Quarto\n\n\nData Handling\npandas · pyarrow · numpy\n\n\nVisualisation\nmatplotlib · seaborn\n\n\nModelling\nscikit-learn · xgboost\n\n\nEvaluation\nBalanced Accuracy · Macro-F1 · Precision/Recall\n\n\nReproducibility\nGit · GitHub Pages · Conda · Zenodo\n\n\n\n![](images/Figure1_TradeOff_Map_300dpi.png){fig-align=\"center\" width=\"90%\"}\nFig. 1. Performance–Cost trade-off across models, illustrating the efficient frontier under imbalance-sensitive evaluation (Lisbon, 2021–2023)."
-  },
-  {
-    "objectID": "index.html#relation-to-the-doctoral-thesis",
-    "href": "index.html#relation-to-the-doctoral-thesis",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "🎓 Relation to the doctoral thesis",
-    "text": "🎓 Relation to the doctoral thesis\nThis project constitutes a methodological extension of ongoing doctoral research in applied data science. It complements prior work on urban PM2.5 modelling by shifting the focus from predictive benchmarking to evaluation coherence under structural constraints. The repository illustrates how a research line evolves toward more operationally grounded analytical frameworks."
-  },
-  {
-    "objectID": "index.html#citation-article",
-    "href": "index.html#citation-article",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "📚 Citation (Article)",
-    "text": "📚 Citation (Article)\nIf you reuse or adapt this resource, please cite as:\n\nShu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., & Carrasco, R. A. (2026).\nRethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.\n(Under submission)."
-  },
-  {
-    "objectID": "index.html#dataset-citation",
-    "href": "index.html#dataset-citation",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "📦 Dataset Citation",
-    "text": "📦 Dataset Citation\nThe bibliographic reference dataset associated with this project is available at:\n\nCáceres-Tello, J. (2026).\nBibliographic dataset for urban PM2.5 imbalance evaluation study.\nZenodo. https://doi.org/10.5281/zenodo.18734761"
-  },
-  {
-    "objectID": "index.html#license",
-    "href": "index.html#license",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "⚖️ License",
-    "text": "⚖️ License\nCode and notebooks: Creative Commons Attribution 4.0 (CC BY 4.0) Data (if reused): CC0 1.0 Public Domain Dedication"
-  },
-  {
-    "objectID": "index.html#contact",
-    "href": "index.html#contact",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "📬 Contact",
-    "text": "📬 Contact\nJesús Cáceres-Tello Department of Computer Systems and Computing Universidad Complutense de Madrid\n📧 jcaceres.academic@gmail.com\n📧 jescacer@ucm.es\n⬅️ Back to my main page\nThis repository supports open, transparent, and reproducible research in environmental data science and STEM education."
-  },
-  {
-    "objectID": "index.html#performancecost-trade-off",
-    "href": "index.html#performancecost-trade-off",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "📊 Performance–Cost trade-off",
-    "text": "📊 Performance–Cost trade-off\nModel comparison integrates predictive performance with computational cost, treating efficiency as a formal evaluation dimension.\n\n\n\n\n\nFig. 2. Performance–Cost trade-off across models (Lisbon, 2021–2023). The plot illustrates the efficiency frontier under imbalance-sensitive evaluation criteria."
-  },
-  {
-    "objectID": "notebook.html#analytical-context",
-    "href": "notebook.html#analytical-context",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "1.1 Analytical context",
-    "text": "1.1 Analytical context\nThe evaluation framework begins with the acquisition and harmonisation of daily PM2.5 observations obtained from the European Environment Agency (EEA) for Lisbon (2021–2023).\nThe objective of this stage is to ensure chronological integrity, consistency of measurements, and transparent preprocessing before any modelling procedure.\n\n\n\n\n\nFig. 1. Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment."
-  },
-  {
-    "objectID": "notebook.html#class-distribution-and-imbalance-structure",
-    "href": "notebook.html#class-distribution-and-imbalance-structure",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "1.2 Class distribution and imbalance structure",
-    "text": "1.2 Class distribution and imbalance structure\nDaily PM2.5 concentrations are categorised into Low, Moderate, and High classes according to WHO-based thresholds. The resulting distribution is structurally asymmetric.\n\n\n\n\n\nTable 1. Distribution of daily PM2.5 classes under WHO-based thresholds.\nHigh-pollution days represent a small fraction of total observations. This imbalance implies that aggregate accuracy may mask poor detection of rare but critical events. Consequently, the evaluation framework explicitly accounts for class asymmetry."
-  },
-  {
-    "objectID": "notebook.html#analytical-synthesis",
-    "href": "notebook.html#analytical-synthesis",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "7.1 Analytical synthesis",
-    "text": "7.1 Analytical synthesis\nThe evaluation results demonstrate that model comparison under structural imbalance cannot rely on a single aggregate metric.\nSeveral key patterns emerge:\n\nModels with similar Accuracy may differ substantially in Balanced Accuracy.\nRare-event recall varies significantly across algorithms.\nComputational cost meaningfully alters the ranking of models.\nThe efficient frontier identifies models that achieve optimal performance–cost compromises.\n\nThese findings reinforce the central argument of the study: evaluation coherence is more important than algorithmic complexity."
-  },
-  {
-    "objectID": "notebook.html#educational-implications",
-    "href": "notebook.html#educational-implications",
-    "title": "Urban PM2.5 Imbalance Evaluation",
-    "section": "7.2 Educational implications",
-    "text": "7.2 Educational implications\nFrom a methodological perspective, this case study illustrates that:\n\nTemporal integrity must be preserved in environmental datasets.\nRare-event detection requires explicit metric selection.\nDeployment constraints should be integrated into evaluation frameworks.\nMulti-criteria comparison prevents misleading single-metric optimisation.\n\nThe framework therefore serves as both an analytical tool and a teaching resource."
-  },
-  {
     "objectID": "scripts.html",
     "href": "scripts.html",
-    "title": "Scripts and Evaluation Workflow",
+    "title": "PM2.5 Forecasting Scripts",
     "section": "",
-    "text": "This page documents the Python scripts that implement the imbalance-aware evaluation framework developed in this project.\nThe objective is not algorithmic benchmarking, but to provide a transparent and modular analytical architecture for evaluating classification models under:\n\nTemporal constraints\nStructural class imbalance\nOperational computational cost\n\nAll scripts are openly available in the repository and can be executed independently."
+    "text": "This section documents the Python scripts implementing the full analytical pipeline for PM2.5 modelling in Madrid.\nThe repository is structured as a sequence of modular scripts. Each script corresponds to a specific stage of the workflow, from data preparation to hybrid forecasting.\nThe objective is to ensure methodological transparency and reproducibility, rather than interactive execution."
   },
   {
     "objectID": "scripts.html#purpose-of-this-section",
@@ -166,5 +47,299 @@
     "title": "Scripts and Evaluation Workflow",
     "section": "Final remark",
     "text": "Final remark\nThis script-based architecture reflects a deployment-oriented evaluation philosophy, where: - Temporal integrity is preserved - Rare-event detection is prioritised - Computational efficiency is quantified - Model trade-offs are explicitly visualised\nThe objective is methodological clarity and operational realism, not technological novelty.\nThe structure is intended for both academic research and advanced teaching in applied data science."
+  },
+  {
+    "objectID": "index.html#direct-access",
+    "href": "index.html#direct-access",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🔗 Direct access",
+    "text": "🔗 Direct access\n\n🧪 Scripts\n💻 Notebook\n📄 Article"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🧠 Overview",
+    "text": "🧠 Overview\nThis repository provides a fully reproducible implementation of the hybrid modelling framework presented in:\nAnalysis and Prediction of PM2.5 Pollution in Madrid using Prophet–LSTM hybrid models\nThe project integrates:\n\nStatistical time series forecasting (Prophet)\nDeep learning models (LSTM)\nEnvironmental and temporal data\n\nThe objective is to combine interpretability and predictive capacity within a coherent modelling framework."
+  },
+  {
+    "objectID": "index.html#monitoring-stations",
+    "href": "index.html#monitoring-stations",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "📍 Monitoring stations",
+    "text": "📍 Monitoring stations\n\n\n\n\n\nFig. 1. Spatial distribution of PM2.5 monitoring stations in Madrid used in the study."
+  },
+  {
+    "objectID": "index.html#research-motivation",
+    "href": "index.html#research-motivation",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🎯 Research motivation",
+    "text": "🎯 Research motivation\nUrban air quality prediction presents several methodological challenges:\n\nStrong temporal dependencies\nSeasonal patterns\nNonlinear dynamics\nInfluence of environmental variables\n\nPurely statistical models often lack flexibility, while deep learning approaches may reduce interpretability.\nThis motivates the use of hybrid modelling strategies."
+  },
+  {
+    "objectID": "index.html#modelling-workflow",
+    "href": "index.html#modelling-workflow",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🧩 Modelling workflow",
+    "text": "🧩 Modelling workflow\nThe analytical pipeline follows a structured sequence:\n\nData acquisition and preprocessing Cleaning, validation, and temporal alignment of PM2.5 data.\nExploratory analysis Identification of trends, variability, and seasonal patterns.\nProphet modelling Decomposition of trend and seasonal components.\nLSTM modelling Learning nonlinear temporal dependencies.\nHybrid integration Combining Prophet outputs with LSTM predictions."
+  },
+  {
+    "objectID": "index.html#forecasting-results",
+    "href": "index.html#forecasting-results",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "📈 Forecasting results",
+    "text": "📈 Forecasting results\n\n\n\n\n\nFig. 2. PM2.5 forecasting using the hybrid Prophet–LSTM model, including historical data, observed values, and predicted trend with confidence interval."
+  },
+  {
+    "objectID": "index.html#analytical-approach",
+    "href": "index.html#analytical-approach",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🧭 Analytical approach",
+    "text": "🧭 Analytical approach\nThe modelling strategy is guided by the following principles:\n\nTemporal coherence: preserving chronological structure\n\nModel complementarity: combining statistical and deep learning methods\n\nReproducibility: fully script-based implementation\n\nInterpretability: maintaining analytical transparency\n\nThis approach balances methodological rigour and predictive performance."
+  },
+  {
+    "objectID": "index.html#repository-structure",
+    "href": "index.html#repository-structure",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🗂️ Repository structure",
+    "text": "🗂️ Repository structure\n\nurban-pm25-forecasting/\n├── docs/                      # GitHub Pages site\n│   ├── index.html\n│   ├── scripts.html\n│   └── notebook.html\n├── data/                      # Processed datasets\n├── images/                    # Figures\n├── scripts/                   # Python scripts\n├── index.qmd\n├── scripts.qmd\n├── notebook.qmd\n├── _quarto.yml\n├── LICENSE\n└── README.md"
+  },
+  {
+    "objectID": "index.html#technologies",
+    "href": "index.html#technologies",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "⚙️ Technologies",
+    "text": "⚙️ Technologies\n\n\n\nCategory\nTools\n\n\n\n\nProgramming\nPython 3.12 · Quarto\n\n\nData\npandas · numpy\n\n\nVisualisation\nmatplotlib · seaborn\n\n\nModelling\nProphet · TensorFlow/Keras (LSTM)\n\n\nReproducibility\nGit · GitHub Pages · Zenodo"
+  },
+  {
+    "objectID": "index.html#reproducibility",
+    "href": "index.html#reproducibility",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🔁 Reproducibility",
+    "text": "🔁 Reproducibility\nAll results are fully reproducible:\n\nScripts implement the complete pipeline\nNotebook enables step-by-step execution\nNo manual data manipulation\nFigures generated programmatically\n\nThe project relies exclusively on open-source tools and open data."
+  },
+  {
+    "objectID": "index.html#relation-to-research",
+    "href": "index.html#relation-to-research",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "🎓 Relation to research",
+    "text": "🎓 Relation to research\nThis repository supports ongoing work in:\n\nUrban sustainability\nEnvironmental data science\nHybrid predictive modelling"
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "📚 Citation",
+    "text": "📚 Citation\nIf you use this work, please cite:\n\nCáceres-Tello, J., & Galán-Hernández, J. J. (2024).\nAnalysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\nAppliedMath, 4(4), 1428–1452.\nhttps://doi.org/10.3390/appliedmath4040076"
+  },
+  {
+    "objectID": "index.html#license",
+    "href": "index.html#license",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "⚖️ License",
+    "text": "⚖️ License\n\nCode: CC BY 4.0\nData: CC0 (where applicable)"
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "PM2.5 Pollution Analysis and Prediction in Madrid",
+    "section": "📬 Contact",
+    "text": "📬 Contact\nJesús Cáceres Tello Complutense University of Madrid\n📧 jcaceres.academic@gmail.com 📧 jescacer@ucm.es\n⬅️ https://jcaceres-academic.github.io\nThis repository promotes open, transparent, and reproducible research in environmental data science."
+  },
+  {
+    "objectID": "notebook.html#analytical-context",
+    "href": "notebook.html#analytical-context",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "1.1 Analytical context",
+    "text": "1.1 Analytical context\nThis notebook implements the reproducible workflow underlying the PM2.5 forecasting study in Madrid. The analysis is based on daily concentration measurements obtained from the urban monitoring network and organised as a structured time series.\nAt this stage, the objective is not to extract insight but to ensure that the data are consistent, chronologically ordered, and suitable for modelling. Particular attention is given to temporal integrity and the handling of missing observations, as these aspects directly affect downstream performance."
+  },
+  {
+    "objectID": "notebook.html#class-distribution-and-imbalance-structure",
+    "href": "notebook.html#class-distribution-and-imbalance-structure",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "1.2 Class distribution and imbalance structure",
+    "text": "1.2 Class distribution and imbalance structure\nDaily PM2.5 concentrations are categorised into Low, Moderate, and High classes according to WHO-based thresholds. The resulting distribution is structurally asymmetric.\n\n\n\n\n\nTable 1. Distribution of daily PM2.5 classes under WHO-based thresholds.\nHigh-pollution days represent a small fraction of total observations. This imbalance implies that aggregate accuracy may mask poor detection of rare but critical events. Consequently, the evaluation framework explicitly accounts for class asymmetry."
+  },
+  {
+    "objectID": "notebook.html#analytical-synthesis",
+    "href": "notebook.html#analytical-synthesis",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "7.1 Analytical synthesis",
+    "text": "7.1 Analytical synthesis\nThe evaluation results demonstrate that model comparison under structural imbalance cannot rely on a single aggregate metric.\nSeveral key patterns emerge:\n\nModels with similar Accuracy may differ substantially in Balanced Accuracy.\nRare-event recall varies significantly across algorithms.\nComputational cost meaningfully alters the ranking of models.\nThe efficient frontier identifies models that achieve optimal performance–cost compromises.\n\nThese findings reinforce the central argument of the study: evaluation coherence is more important than algorithmic complexity."
+  },
+  {
+    "objectID": "notebook.html#educational-implications",
+    "href": "notebook.html#educational-implications",
+    "title": "Urban PM2.5 Imbalance Evaluation",
+    "section": "7.2 Educational implications",
+    "text": "7.2 Educational implications\nFrom a methodological perspective, this case study illustrates that:\n\nTemporal integrity must be preserved in environmental datasets.\nRare-event detection requires explicit metric selection.\nDeployment constraints should be integrated into evaluation frameworks.\nMulti-criteria comparison prevents misleading single-metric optimisation.\n\nThe framework therefore serves as both an analytical tool and a teaching resource."
+  },
+  {
+    "objectID": "notebook.html#monitoring-stations",
+    "href": "notebook.html#monitoring-stations",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "1.2 Monitoring stations",
+    "text": "1.2 Monitoring stations\n\n\n\n\n\nFig. 1. Spatial distribution of PM2.5 monitoring stations in Madrid."
+  },
+  {
+    "objectID": "notebook.html#temporal-structure",
+    "href": "notebook.html#temporal-structure",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "2.2 Temporal structure",
+    "text": "2.2 Temporal structure\nBefore introducing predictive models, it is necessary to understand the temporal characteristics of the data. The PM2.5 signal combines short-term variability with broader seasonal patterns, reflecting both local dynamics and environmental conditions.\nThis stage provides a structural understanding of the series rather than an exhaustive exploratory analysis."
+  },
+  {
+    "objectID": "notebook.html#analytical-context-1",
+    "href": "notebook.html#analytical-context-1",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "3.1 Analytical context",
+    "text": "3.1 Analytical context\nProphet is used as an initial modelling approach due to its ability to decompose the time series into interpretable components such as trend and seasonality. This provides a transparent baseline for understanding the dominant structure of the data.\nRather than focusing on optimisation, the objective is to establish a stable and interpretable reference model."
+  },
+  {
+    "objectID": "notebook.html#analytical-context-2",
+    "href": "notebook.html#analytical-context-2",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "4.1 Analytical context",
+    "text": "4.1 Analytical context\nTo complement the statistical structure captured by Prophet, LSTM networks are introduced to model nonlinear temporal dependencies. These architectures are particularly suited to capturing patterns that evolve over time and are not easily represented through additive components.\nThe LSTM model focuses on short-term dynamics and local fluctuations."
+  },
+  {
+    "objectID": "notebook.html#analytical-context-3",
+    "href": "notebook.html#analytical-context-3",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "5.1 Analytical context",
+    "text": "5.1 Analytical context\nThe hybrid modelling strategy combines the strengths of both approaches. Prophet captures the global structure of the series, while LSTM refines the prediction by learning nonlinear residual behaviour.\nThis integration reflects a complementary modelling philosophy, where interpretability and flexibility are balanced."
+  },
+  {
+    "objectID": "notebook.html#interpretation",
+    "href": "notebook.html#interpretation",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "6.1 Interpretation",
+    "text": "6.1 Interpretation\nThe hybrid model produces forecasts that align coherently with observed data, capturing both the underlying trend and short-term variability. This behaviour illustrates the advantage of combining statistical decomposition with sequence-based learning."
+  },
+  {
+    "objectID": "notebook.html#evaluation-strategy",
+    "href": "notebook.html#evaluation-strategy",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "7.1 Evaluation strategy",
+    "text": "7.1 Evaluation strategy\nModel performance is assessed using standard forecasting error metrics, ensuring that evaluation reflects realistic predictive conditions. A time-based validation strategy is applied to preserve chronological integrity.\nThe objective is not to maximise performance metrics, but to ensure methodological coherence and interpretability."
+  },
+  {
+    "objectID": "notebook.html#citation",
+    "href": "notebook.html#citation",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "9.1 Citation",
+    "text": "9.1 Citation\n\nCáceres-Tello, J., & Galán-Hernández, J. J. (2024).\nAnalysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\nAppliedMath, 4(4), 1428–1452.\nhttps://doi.org/10.3390/appliedmath4040076"
+  },
+  {
+    "objectID": "notebook.html#contact",
+    "href": "notebook.html#contact",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "9.2 📬 Contact",
+    "text": "9.2 📬 Contact\nJesús Cáceres Tello Complutense University of Madrid\n📧 jcaceres.academic@gmail.com 📧 jescacer@ucm.es\n⬅️ https://jcaceres-academic.github.io\nThis repository promotes open, transparent, and reproducible research in environmental data science."
+  },
+  {
+    "objectID": "notebook.html#spatial-variability",
+    "href": "notebook.html#spatial-variability",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "1.3 Spatial variability",
+    "text": "1.3 Spatial variability\n\n\n\n\n\nFig. 2. Spatial distribution of PM2.5 concentration levels across districts in Madrid.\nAlthough the forecasting task is approached as a temporal problem, spatial variability provides important contextual information. Differences across districts reflect heterogeneous urban dynamics, which indirectly influence the temporal behaviour captured by the models."
+  },
+  {
+    "objectID": "notebook.html#analytical-workflow",
+    "href": "notebook.html#analytical-workflow",
+    "title": "PM2.5 Forecasting Workflow",
+    "section": "2.1 Analytical workflow",
+    "text": "2.1 Analytical workflow\n\n\n\n\n\nFig. 3. Conceptual workflow of the PM2.5 forecasting process, from data acquisition to model evaluation.\nThis schematic representation summarises the structure of the analytical pipeline. While simplified, it reflects the sequential nature of the workflow implemented in this study, where each stage builds upon the previous one."
+  },
+  {
+    "objectID": "scripts.html#data_preprocessing.py",
+    "href": "scripts.html#data_preprocessing.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "01_data_preprocessing.py",
+    "text": "01_data_preprocessing.py\nThis script transforms raw air quality datasets into a structured format suitable for analysis.\nIt performs:\n\nTemporal parsing and validation\nReshaping daily measurements\nFiltering relevant pollutants\nIntegration with station metadata\nGeneration of clean datasets\n\nThe output consists of processed CSV files per year, which are reused across all subsequent stages."
+  },
+  {
+    "objectID": "scripts.html#descriptive_analysis.py",
+    "href": "scripts.html#descriptive_analysis.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "03_descriptive_analysis.py",
+    "text": "03_descriptive_analysis.py\nThis stage provides a statistical overview of PM2.5 behaviour.\nThe analysis includes:\n\nSummary statistics by year\nDistributional analysis\nIdentification of variability patterns\n\nThese results help characterise the structure of the dataset prior to modelling."
+  },
+  {
+    "objectID": "scripts.html#trend_analysis.py",
+    "href": "scripts.html#trend_analysis.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "04_trend_analysis.py",
+    "text": "04_trend_analysis.py\nThis script examines temporal dynamics across districts.\nIt focuses on:\n\nAggregation of PM2.5 levels over time\nComparison between districts\nIdentification of heterogeneous patterns\n\nThis step provides context for understanding spatial and temporal dependencies."
+  },
+  {
+    "objectID": "scripts.html#district_map.py",
+    "href": "scripts.html#district_map.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "05_district_map.py",
+    "text": "05_district_map.py"
+  },
+  {
+    "objectID": "scripts.html#station_map.py",
+    "href": "scripts.html#station_map.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "06_station_map.py",
+    "text": "06_station_map.py\nThese scripts generate spatial visualisations of the monitoring infrastructure.\nThey include:\n\nDistrict boundaries\nLocations of monitoring stations\nIdentification of districts with PM2.5 measurements\n\nThese maps provide essential geographical context for the analysis."
+  },
+  {
+    "objectID": "scripts.html#hybrid_forecasting.py",
+    "href": "scripts.html#hybrid_forecasting.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "07_hybrid_forecasting.py",
+    "text": "07_hybrid_forecasting.py\nThis script implements the core Prophet–LSTM hybrid model.\nThe modelling pipeline consists of:\n\nDaily aggregation of PM2.5\nProphet-based trend and seasonality modelling\nResidual computation\nNormalisation of residuals\nLSTM-based learning of nonlinear patterns\nForecasting of residual dynamics\nReconstruction of the hybrid prediction\n\nThe output corresponds to the main forecasting results presented in the study."
+  },
+  {
+    "objectID": "scripts.html#district_forecasting.py",
+    "href": "scripts.html#district_forecasting.py",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "08_district_forecasting.py",
+    "text": "08_district_forecasting.py\nThis script extends the hybrid modelling framework to individual districts.\nIt includes:\n\nFiltering of district-specific data\nIndependent model training per district\nLocal forecasting\nComparison between predicted and observed values\n\nThis approach highlights spatial heterogeneity in predictive performance."
+  },
+  {
+    "objectID": "scripts.html#data-preparation",
+    "href": "scripts.html#data-preparation",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "🧱 Data preparation",
+    "text": "🧱 Data preparation\n\n01_data_preprocessing.py\nThis script transforms raw air quality datasets into a structured format suitable for analysis.\nIt performs:\n\nTemporal parsing and validation\nReshaping daily measurements\nFiltering relevant pollutants\nIntegration with station metadata\nGeneration of clean datasets\n\nThe output consists of processed CSV files per year, which are reused across all subsequent stages."
+  },
+  {
+    "objectID": "scripts.html#descriptive-analysis",
+    "href": "scripts.html#descriptive-analysis",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "📊 Descriptive analysis",
+    "text": "📊 Descriptive analysis\n\n03_descriptive_analysis.py\nThis stage provides a statistical overview of PM2.5 behaviour.\nThe analysis includes:\n\nSummary statistics by year\nDistributional analysis\nIdentification of variability patterns\n\nThese results help characterise the structure of the dataset prior to modelling."
+  },
+  {
+    "objectID": "scripts.html#temporal-trend-analysis",
+    "href": "scripts.html#temporal-trend-analysis",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "📈 Temporal trend analysis",
+    "text": "📈 Temporal trend analysis\n\n04_trend_analysis.py\nThis script examines temporal dynamics across districts.\nIt focuses on:\n\nAggregation of PM2.5 levels over time\nComparison between districts\nIdentification of heterogeneous patterns\n\nThis step provides context for understanding spatial and temporal dependencies."
+  },
+  {
+    "objectID": "scripts.html#monitoring-network-representation",
+    "href": "scripts.html#monitoring-network-representation",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "📍 Monitoring network representation",
+    "text": "📍 Monitoring network representation\n\n05_district_map.py\n\n\n06_station_map.py\nThese scripts generate spatial visualisations of the monitoring infrastructure.\nThey include:\n\nDistrict boundaries\nLocations of monitoring stations\nIdentification of districts with PM2.5 measurements\n\nThese maps provide essential geographical context for the analysis."
+  },
+  {
+    "objectID": "scripts.html#hybrid-forecasting-model",
+    "href": "scripts.html#hybrid-forecasting-model",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "🤖 Hybrid forecasting model",
+    "text": "🤖 Hybrid forecasting model\n\n07_hybrid_forecasting.py\nThis script implements the core Prophet–LSTM hybrid model.\nThe modelling pipeline consists of:\n\nDaily aggregation of PM2.5\nProphet-based trend and seasonality modelling\nResidual computation\nNormalisation of residuals\nLSTM-based learning of nonlinear patterns\nForecasting of residual dynamics\nReconstruction of the hybrid prediction\n\nThe output corresponds to the main forecasting results presented in the study."
+  },
+  {
+    "objectID": "scripts.html#district-level-forecasting",
+    "href": "scripts.html#district-level-forecasting",
+    "title": "PM2.5 Forecasting Scripts",
+    "section": "🏙️ District-level forecasting",
+    "text": "🏙️ District-level forecasting\n\n08_district_forecasting.py\nThis script extends the hybrid modelling framework to individual districts.\nIt includes:\n\nFiltering of district-specific data\nIndependent model training per district\nLocal forecasting\nComparison between predicted and observed values\n\nThis approach highlights spatial heterogeneity in predictive performance."
   }
 ]

@@ -1,164 +1,218 @@
 ---
-title: "Scripts and Evaluation Workflow"
-subtitle: "Reproducible Python pipeline for Urban PM2.5 imbalance-aware classification"
+title: "PM2.5 Forecasting Scripts"
+subtitle: "Reproducible implementation of the Prophet–LSTM hybrid modelling framework"
+author:
+  - name: "Jesús Cáceres Tello"
+    affiliation: "Complutense University of Madrid"
+    email: "jcaceres.academic@gmail.com"
+  - name: "José Javier Galán Hernández"
+    affiliation: "University of Alcalá"
+    email: "jose.galan@uah.es"
+date: "2024"
+lang: en
 format:
   html:
     toc: true
+    toc-depth: 2
     theme: cosmo
 ---
 
-## Purpose of this section
+# 🧩 Overview
 
-This page documents the Python scripts that implement the imbalance-aware evaluation framework developed in this project.
+This section documents the **Python scripts implementing the full analytical pipeline** for PM2.5 modelling in Madrid.
 
-The objective is not algorithmic benchmarking, but to provide a transparent and modular analytical architecture for evaluating classification models under:
+The repository is structured as a sequence of modular scripts. Each script corresponds to a specific stage of the workflow, from data preparation to hybrid forecasting.
 
-- Temporal constraints
-- Structural class imbalance
-- Operational computational cost
+The objective is to ensure **methodological transparency and reproducibility**, rather than interactive execution.
 
-All scripts are openly available in the repository and can be executed independently.
+# 📂 Script organisation
 
-## Methodological position
+The workflow is organised into the following stages:
 
-The workflow is structured around the following principles:
+``` text
+scripts/ 
+  ├── 01_data_preprocessing.py 
+  |
+  ├── 02_spatial_analysis.py 
+  |
+  ├── 03_descriptive_analysis.py 
+  |
+  ├── 04_trend_analysis.py 
+  |
+  ├── 05_district_map.py 
+  |
+  ├── 06_station_map.py 
+  |
+  ├── 07_hybrid_forecasting.py 
+  |
+  ├── 08_district_forecasting.py
+```
 
-- Chronological integrity (no random splits)
-- Explicit imbalance analysis
-- Separation between preprocessing, training, and evaluation
-- Cost-aware performance assessment
-- Full reproducibility using open Python tools
+Each script can be executed independently, although they are designed to follow a logical sequence.
 
-The scripts are modular, traceable, and designed for deployment-oriented evaluation rather than experimental optimisation.
+## 🧱 Data preparation
 
+### 01_data_preprocessing.py
 
-## Script overview
+This script transforms raw air quality datasets into a structured format suitable for analysis.
 
-### 01 - Data acquisition (EEA / OpenAQ)
-**`eea_read.py`**   
+It performs:
 
-This script handle the acquisition of raw PM2.5 data from official sources.
+-   Temporal parsing and validation
 
-**Main objectives**
-- Load hourly PM2.5 measurements.
-- Standardise column formats.
-- Validate temporal consistency.
-- Store structured raw datasets.
+-   Reshaping daily measurements
 
-They establish the empirical foundation of the pipeline.
+-   Filtering relevant pollutants
 
-### 02 - Preprocessing and harmonisation
-**`preprocess_pm25_lisbon.py`**
+-   Integration with station metadata
 
-Transforms raw hourly observations into analysis-ready daily data.
+-   Generation of clean datasets
 
-**Main objectives**
-- Daily aggregation.
-- WHO-based class definition.
-- Missing value inspection.
-- Label encoding (Low / Moderate / High).
-- Export of consolidated parquet files.
+The output consists of **processed CSV files per year**, which are reused across all subsequent stages.
 
-This step defines the structural imbalance observed in the High category.
+# 🗺️ Spatial analysis
 
-### 03 — Classical modelling and evaluation  
-**`model_ready.py`**
+### 02_spatial_analysis.py
 
-Prepares the dataset for classification modelling.
+This script generates district-level representations of PM2.5 concentrations.
 
-**Main objectives**
-- Feature construction.
-- Temporal ordering enforcement.
-- Train/Test split:
-  - Train: 2021–2022
-  - Test: 2023
-- Final matrix preparation for modelling.
+It includes:
 
-Chronological integrity is strictly preserved.
+-   Aggregation of data by district and year
 
-### 04 - Model training
-**`entrenamiento.py`**
+-   Harmonisation of district naming conventions
 
-Implements supervised classification models:
-- Logistic Regression
-- Random Forest
-- XGBoost
-- Multi-Layer Perceptron (MLP)
+-   Integration with geographic shapefiles
 
-**Main objetives**
-- Fit models on training data.
-- Compute predictions on 2023 test data.
-- Measure training and inference time.
-- Export raw prediction outputs.
+-   Production of choropleth maps
 
-The script prioritises structured evaluation rather than hyperparameter search.
+These outputs support the interpretation of spatial variability in air pollution.
 
-### 05 - Metrics extraction and export
-**`extraer_metricas.py`**     **`exportar_metricas_balanced.py`**
+## 📊 Descriptive analysis
 
-These scripts compute imbalance-aware metrics:
-- Accuracy
-- Macro-F1
-- Balanced Accuracy
-- Class-specific Precision / Recall / F1 (High class)
-- Computational cost (training + inference time)
+### 03_descriptive_analysis.py
 
-Outputs are formatted for:
-- Publication tables
-- Web visualisation
-- Trade-off analysis
+This stage provides a statistical overview of PM2.5 behaviour.
 
-### 06 - Visual analytics
+The analysis includes:
 
-**`plot_radar_balanced.py`**
-**`plot_ranking_scenarios.py`**
-**`tradeoff_map.py`**
-**`generate_tradeoff_map_pm25_lisbon_2021_2023.py`**
+-   Summary statistics by year
 
-These scripts produce the graphical synthesis of the evaluation:
-- Radar comparison under balanced scenario
-- Multi-criteria ranking across decision scenarios
-- Performance–Cost trade-off map
-- Efficient frontier visualisation
+-   Distributional analysis
 
-Figures are exported in:
+-   Identification of variability patterns
 
-- figures_publication/ (300 dpi TIFF)
-- images/ (PNG for web rendering)
+These results help characterise the structure of the dataset prior to modelling.
 
+## 📈 Temporal trend analysis
 
-## Execution logic
+### 04_trend_analysis.py
 
-Scripts are intended to be executed sequentially:
+This script examines temporal dynamics across districts.
 
-1. Data acquisition
-2. Preprocessing
-3. Model-ready dataset construction
-4. Model training
-5. Metric extraction
-6. Visual analytics
+It focuses on:
 
-This structure ensures full traceability and reproducibility.
+-   Aggregation of PM2.5 levels over time
 
-## Reproducibility and transparency
+-   Comparison between districts
 
-All scripts:
-- Are fully documented.
-- Rely exclusively on open-source tools.
-- Produce results programmatically.
-- Can be executed independently.
-- Require no manual data manipulation
+-   Identification of heterogeneous patterns
 
-The computational environment is managed using Conda.
+This step provides context for understanding spatial and temporal dependencies.
 
-## Final remark
+## 📍 Monitoring network representation
 
-This script-based architecture reflects a deployment-oriented evaluation philosophy, where:
-- Temporal integrity is preserved
-- Rare-event detection is prioritised
-- Computational efficiency is quantified
-- Model trade-offs are explicitly visualised
+### 05_district_map.py
 
-The objective is methodological clarity and operational realism, not technological novelty.
+### 06_station_map.py
 
-The structure is intended for both academic research and advanced teaching in applied data science.
+These scripts generate spatial visualisations of the monitoring infrastructure.
+
+They include:
+
+-   District boundaries
+
+-   Locations of monitoring stations
+
+-   Identification of districts with PM2.5 measurements
+
+These maps provide essential geographical context for the analysis.
+
+## 🤖 Hybrid forecasting model
+
+### 07_hybrid_forecasting.py
+
+This script implements the core **Prophet–LSTM hybrid model**.
+
+The modelling pipeline consists of:
+
+-   Daily aggregation of PM2.5
+
+-   Prophet-based trend and seasonality modelling
+
+-   Residual computation
+
+-   Normalisation of residuals
+
+-   LSTM-based learning of nonlinear patterns
+
+-   Forecasting of residual dynamics
+
+-   Reconstruction of the hybrid prediction
+
+The output corresponds to the main forecasting results presented in the study.
+
+## 🏙️ District-level forecasting
+
+### 08_district_forecasting.py
+
+This script extends the hybrid modelling framework to individual districts.
+
+It includes:
+
+-   Filtering of district-specific data
+
+-   Independent model training per district
+
+-   Local forecasting
+
+-   Comparison between predicted and observed values
+
+This approach highlights spatial heterogeneity in predictive performance.
+
+# ⚙️ Execution notes
+
+The scripts were originally developed in a cloud-based environment and later adapted for local execution.
+
+To run the workflow locally:
+
+-   Ensure that all datasets are available in the `/data` directory
+
+-   Adjust file paths if necessary
+
+-   Install required Python dependencies
+
+The scripts are intended to be executed sequentially but remain modular.
+
+# 🔁 Reproducibility statement
+
+This repository provides a **complete and transparent implementation of the analytical workflow**.
+
+All data transformations, modelling steps, and visualisations are explicitly defined.
+
+The objective is to ensure:
+
+-   reproducibility of results
+
+-   traceability of the analytical process
+
+-   methodological clarity
+
+# 🌐 Data availability
+
+All datasets and supplementary materials are available at:
+
+<https://doi.org/10.5281/zenodo.19659982>
+
+Note: The Zenodo archive contains additional materials from related research.\
+Only the scripts described in this section are required to reproduce the results presented in this study.

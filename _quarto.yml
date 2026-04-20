@@ -19,8 +19,8 @@ website:
         target: "_self"
 
       - icon: file-earmark-text
-        text: "Manuscript (PDF)"
-        href: article.pdf
+        text: "Article"
+        href: https://doi.org/10.3390/appliedmath4040076
         target: "_blank"
 
       - icon: laptop

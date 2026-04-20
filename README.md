@@ -1,59 +1,75 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-# urban-pm25-forecasting
-Forecasting urban PM2.5 concentrations using hybrid Prophet–LSTM models
-=======
->>>>>>> temp-save
-# Urban PM2.5 Imbalance Evaluation
+# PM2.5 Pollution Analysis and Prediction in Madrid
 
 Open, reproducible research materials supporting the article:
 
-**Rethinking Model Evaluation for Urban PM2.5 Classification:
-Imbalance, Temporal Validation and Computational Cost**
-Case study: Lisbon (2021–2023), using official data from the European Environment Agency (EEA).
+**Analysis and Prediction of PM2.5 Pollution in Madrid: Use of Prophet–LSTM Hybrid Models** *(AppliedMath, 2024)*
 
 ## 🔗 Project links
 
-- 🌐 **Project page (methodology & evaluation framework)**  
-  https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/
-
-- 📘 **Reproducible notebook**  
-  https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/notebook.html
+```         
+🌐 Project page (methodology, results and context)
+https://jcaceres-academic.github.io/urban-pm25-forecasting/
+📘 Reproducible notebook
+https://jcaceres-academic.github.io/urban-pm25-forecasting/notebooks.html
+📄 Published article
+https://doi.org/10.3390/appliedmath4040076
+```
 
 ## 📁 Repository overview
 
-| Folder | Description |
-|--------|------------|
-| `docs/` | Rendered project website and reproducible notebooks (Quarto / GitHub Pages) |
-| `scripts/` | Full reproducible Python pipeline (data preparation, modelling, evaluation, visualisation) |
-| `figures/` | Publication-ready high-resolution figures (300 dpi, submission-ready formats) |
-| `images/` | PNG visual assets used in the rendered HTML pages (web-optimised versions of figures) |
-| `data/` | Consolidated parquet datasets used in the analysis (EEA PM2.5 data, daily aggregation, classification outputs) |
+-   docs/ – Rendered Quarto website (GitHub Pages deployment)
+-   data/ – Processed datasets (PM2.5 and meteorological variables)
+-   scripts/ – Reproducible data processing and modelling pipeline
+-   figures/ – Publication-ready figures (PNG / TIFF)
 
-## 🔁 Research focus
+## 🧠 Research scope
 
-This project implements a reproducible evaluation framework for daily urban PM2.5 classification under real-world deployment constraints.
-The study emphasises:
-<ul>
-  <li>Structural class imbalance (rare high-pollution events)</li>
-  <li>Strict temporal validation (Train: 2021–2022 | Test: 2023)</li>
-  <li>Balanced Accuracy and Macro-F1 as primary metrics</li>
-  <li>Explicit integration of computational cost (training + inference time)</li>
-</ul>
-Rather than proposing a new algorithm, the repository rethinks how predictive models should be compared when operational deployment and rare-event detection matter.
+This repository supports a study on **urban air quality analysis and prediction in Madrid**, focusing on:
 
+-   Temporal analysis of PM2.5 levels (2019–2024)
+-   Spatial distribution across monitoring districts
+-   Hybrid modelling using *Prophet–LSTM*
+-   Integration of meteorological and environmental data
+
+The approach combines *statistical forecasting and deep learning* to capture both:
+
+-   Seasonal and trend components (Prophet)
+-   Long-term dependencies and nonlinear patterns (LSTM)
+
+## 🔁 Reproducibility principles
+
+This project follows principles of:
+
+-   Reproducibility by design
+-   Transparent data processing
+-   Programmatic figure generation
+-   Open data integration (Madrid Open Data Portal)
+
+All results presented in the article are generated from the scripts and notebooks included in this repository.
+
+### Data and reproducibility
+
+All datasets and scripts are available in the associated Zenodo repository:
+
+https://doi.org/10.5281/zenodo.19659982
+
+Note: The Zenodo archive contains additional scripts from related research lines.  
+The scripts relevant to this study are those included in this repository and described in the documentation.
+
+## ⚙️ Technologies
+
+-   Python 3.12
+-   pandas · numpy
+-   Prophet
+-   TensorFlow / Keras (LSTM)
+-   matplotlib · seaborn
+-   Quarto (documentation and web deployment)
 
 ## 📜 License
 
 Creative Commons Attribution 4.0 (CC BY 4.0)
 
----
+------------------------------------------------------------------------
 
-➡️ For the full project description, workflow, references, and educational context,  
+➡️ For the full project description, workflow, references, and educational context,\
 see the **project website** linked above.
-
-<<<<<<< HEAD
-=======
->>>>>>> 517d203 (Initial version)
->>>>>>> temp-save

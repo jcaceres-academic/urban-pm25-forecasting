@@ -1,180 +1,187 @@
 ---
-title: "Urban PM2.5 Imbalance Evaluation"
-subtitle: "Temporal validation, class imbalance and performance–cost assessment framework"
+title: "PM2.5 Pollution Analysis and Prediction in Madrid"
+subtitle: "Analysis and Prediction of PM2.5 Pollution in Madrid: Use of Prophet–LSTM Hybrid Models"
+author:
+  - name: "Jesús Cáceres Tello"
+    affiliation: "Complutense University of Madrid"
+    email: "jcaceres.academic@gmail.com"
+  - name: "José Javier Galán Hernández"
+    affiliation: "University of Alcalá"
+    email: "jose.galan@uah.es"
+date: "2024"
 lang: en
 format:
   html:
     toc: true
+    toc-depth: 2
     theme: cosmo
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation)
-[![DOI](https://img.shields.io/badge/DOI-10.5281%2Fzenodo.18734761-blue.svg)](https://doi.org/10.5281/zenodo.18734761) 
-
----
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) 
+[![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)  
+[![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076) 
+[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
 
 
-## 🔗 **Direct access**
-- 🧪 [Methodological scripts and pipeline implementation](scripts.html)
-- 💻 [Reproducible notebook](notebook.html)
-- 📄 [Associated article]()
+## 🔗 Direct access
+
+-   🧪 [Scripts](scripts.html)
+-   💻 [Notebook](notebook.html)
+-   📄 [Article](https://doi.org/10.3390/appliedmath4040076)
 
 
 ## 🧠 Overview
 
-This repository hosts the open, reproducible materials supporting a methodological study on urban PM2.5 classification under structural imbalance and deployment constraints.
+This repository provides a **fully reproducible implementation** of the hybrid modelling framework presented in:
 
-Rather than introducing a new predictive model, the project proposes a coherent evaluation framework designed for real-world environmental monitoring contexts, where:
+**Analysis and Prediction of PM2.5 Pollution in Madrid using Prophet–LSTM hybrid models**
 
-- Rare high-pollution episodes are critical
-- Temporal structure must be preserved
-- Computational feasibility matters
+The project integrates:
 
-The case study focuses on Lisbon (2021–2023), using official data from the European Environment Agency (EEA).
+- Statistical time series forecasting (Prophet)
+- Deep learning models (LSTM)
+- Environmental and temporal data
 
+The objective is to combine **interpretability and predictive capacity** within a coherent modelling framework.
+
+
+## 📍 Monitoring stations
+
+![](images/Fig_PM25_Stations_Madrid.png){fig-align="center" width="85%"}
+
+**Fig. 1.** Spatial distribution of PM2.5 monitoring stations in Madrid used in the study.
 
 
 ## 🎯 Research motivation
 
-Model comparison in environmental machine learning often relies on:
+Urban air quality prediction presents several methodological challenges:
 
-- Random train–test splits that ignore temporal structure,
-- Accuracy-driven benchmarking,
-- Limited consideration of rare-event detection,
-- Neglect of computational cost in operational contexts.
+-   Strong temporal dependencies
+-   Seasonal patterns
+-   Nonlinear dynamics
+-   Influence of environmental variables
 
-These practices can distort the interpretation of model performance when applied to real urban monitoring systems.
+Purely statistical models often lack flexibility, while deep learning approaches may reduce interpretability.
 
-This project responds by integrating:
-
-- Time-aware validation (Train: 2021–2022 | Test: 2023),
-- Imbalance-sensitive metrics (Balanced Accuracy, Macro-F1),
-- Explicit computational cost analysis (training + inference),
-- A multi-criteria performance–cost comparison.
-
-The emphasis is methodological coherence rather than algorithmic novelty.
-
-## 🧩 Reproducible methodological workflow
-
-The analytical workflow follows a structured and sequential pipeline:
-
-![](images/Fig1_pipeline.png){fig-align="center" width="60%"}
-
-**Fig. 1.** Structured evaluation pipeline integrating data acquisition, daily aggregation, WHO-based label definition, temporal validation (2021–2022 / 2023), model training, and performance–cost assessment.
-
-1. **Data acquisition and harmonisation**
-   Aggregation of hourly PM2.5 observations into daily values and classification under WHO thresholds.
-
-2. **Imbalance analysis**
-   Examination of class distribution and structural asymmetry in rare high-pollution events.
-
-3. **Model training under temporal validation**
-   Logistic Regression, Random Forest, XGBoost, and MLP trained on 2021–2022 data.
-
-4. **Imbalance-aware evaluation**
-   Balanced Accuracy, Macro-F1, and class-specific recall for the High category.
-
-5. **Performance–Cost trade-off assessment**
-   Integration of computational cost as a formal evaluation dimension.
-
-This workflow reflects a deployment-oriented evaluation stance, not a technology-driven benchmark.
+This motivates the use of **hybrid modelling strategies**.
 
 
-## 🧭 Analytical philosophy
+## 🧩 Modelling workflow
 
-The framework is guided by the following principles:
-- Chronological integrity: no random splits are applied to temporal data.
-- Imbalance awareness: rare-event detection is prioritised over aggregate accuracy.
-- Operational realism: computational cost is treated as an evaluation criterion.
-- Reproducibility by design: all results are generated programmatically.
-- Comparative transparency: model trade-offs are explicitly visualised.
+The analytical pipeline follows a structured sequence:
 
-This perspective aligns with the broader doctoral research programme in applied data science and sustainable urban analytics.
+1.  **Data acquisition and preprocessing**
+    Cleaning, validation, and temporal alignment of PM2.5 data.
 
-## 📊 Performance–Cost trade-off
+2.  **Exploratory analysis**
+    Identification of trends, variability, and seasonal patterns.
 
-Model comparison integrates predictive performance with computational cost, treating efficiency as a formal evaluation dimension.
+3.  **Prophet modelling**
+    Decomposition of trend and seasonal components.
 
-![](images/Fig4_Performance_Cost_Map.png){fig-align="center" width="75%"}
+4.  **LSTM modelling**
+    Learning nonlinear temporal dependencies.
 
-**Fig. 2.** Performance–Cost trade-off across models (Lisbon, 2021–2023). The plot illustrates the efficiency frontier under imbalance-sensitive evaluation criteria.
+5.  **Hybrid integration**
+    Combining Prophet outputs with LSTM predictions.
+
+
+## 📈 Forecasting results
+
+![](images/Fig_Forecast_Madrid_Prophet_LSTM.png){fig-align="center" width="90%"}
+
+**Fig. 2.** PM2.5 forecasting using the hybrid Prophet–LSTM model, including historical data, observed values, and predicted trend with confidence interval.
+
+
+## 🧭 Analytical approach
+
+The modelling strategy is guided by the following principles:
+
+-   **Temporal coherence**: preserving chronological structure\
+-   **Model complementarity**: combining statistical and deep learning methods\
+-   **Reproducibility**: fully script-based implementation\
+-   **Interpretability**: maintaining analytical transparency
+
+This approach balances methodological rigour and predictive performance.
+
 
 ## 🗂️ Repository structure
 
 ```text
-urban-pm25-imbalance-evaluation/
-   ├── docs/                      # Rendered Quarto website (GitHub Pages)
-   │   ├── index.html
-   │   └── notebook.html
-   ├── data/                      # Consolidated parquet datasets
-   ├── figures/                   # High-resolution publication figures
-   ├── images/                    # Web-optimised PNG assets
-   ├── scripts/                   # Python scripts implementing the evaluation pipeline
-   ├── index.qmd
-   ├── notebook.qmd
-   ├── _quarto.yml
-   ├── LICENSE
-   └── README.md
+
+urban-pm25-forecasting/
+├── docs/                      # GitHub Pages site
+│   ├── index.html
+│   ├── scripts.html
+│   └── notebook.html
+├── data/                      # Processed datasets
+├── images/                    # Figures
+├── scripts/                   # Python scripts
+├── index.qmd
+├── scripts.qmd
+├── notebook.qmd
+├── _quarto.yml
+├── LICENSE
+└── README.md
 ```
 
-## ⚙️ Technologies Used
+## ⚙️ Technologies
 
-| Category | Tools / Packages |
-|----------|------------------|
-| **Programming** | [Python](https://www.python.org/) 3.11 + · [Quarto](https://quarto.org/) |
-| **Data Handling** | `pandas` · `pyarrow` · `numpy` |
-| **Visualisation** | `matplotlib` · `seaborn` |
-| **Modelling** | `scikit-learn` · `xgboost` |
-| **Evaluation** | `Balanced Accuracy` · `Macro-F1` · `Precision/Recall` |
-| **Reproducibility** | `Git` · `GitHub Pages` · `Conda` · `Zenodo` |
+| Category        | Tools                             |
+|-----------------|-----------------------------------|
+| Programming     | Python 3.12 · Quarto              |
+| Data            | pandas · numpy                    |
+| Visualisation   | matplotlib · seaborn              |
+| Modelling       | Prophet · TensorFlow/Keras (LSTM) |
+| Reproducibility | Git · GitHub Pages · Zenodo       |
 
+## 🔁 Reproducibility
 
-```
-![](images/Figure1_TradeOff_Map_300dpi.png){fig-align="center" width="90%"}
-```
-**Fig. 1.** Performance–Cost trade-off across models, illustrating the efficient frontier under imbalance-sensitive evaluation (Lisbon, 2021–2023).
+All results are fully reproducible:
 
+-   Scripts implement the complete pipeline
 
-## 🎓 Relation to the doctoral thesis
+-   Notebook enables step-by-step execution
 
-This project constitutes a methodological extension of ongoing doctoral research in applied data science. 
-It complements prior work on urban PM2.5 modelling by shifting the focus from predictive benchmarking to evaluation coherence under structural constraints.
-The repository illustrates how a research line evolves toward more operationally grounded analytical frameworks.
+-   No manual data manipulation
 
+-   Figures generated programmatically
 
-## 📚 Citation (Article)
+The project relies exclusively on **open-source tools and open data**.
 
-If you reuse or adapt this resource, please cite as:
+## 🎓 Relation to research
 
-> Shu, Z., Cáceres-Tello, J., Galán-Hernández, J. J., Rua, O. L., & Carrasco, R. A. (2026).  
-Rethinking Model Evaluation for Urban PM2.5 Classification: Imbalance, Temporal Validation and Computational Cost.  
-(Under submission).
+This repository supports ongoing work in:
 
-## 📦 Dataset Citation
+-   Urban sustainability
 
-The bibliographic reference dataset associated with this project is available at:
+-   Environmental data science
 
-> Cáceres-Tello, J. (2026).  
-Bibliographic dataset for urban PM2.5 imbalance evaluation study.  
-Zenodo. https://doi.org/10.5281/zenodo.18734761
+-   Hybrid predictive modelling
+
+## 📚 Citation
+
+If you use this work, please cite:
+
+> Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).\
+> Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\
+> *AppliedMath*, 4(4), 1428–1452.\
+> <https://doi.org/10.3390/appliedmath4040076>
 
 ## ⚖️ License
 
-Code and notebooks: Creative Commons Attribution 4.0 (CC BY 4.0)
-Data (if reused): CC0 1.0 Public Domain Dedication
+-   Code: CC BY 4.0
 
+-   Data: CC0 (where applicable)
 
 ## 📬 Contact
 
-Jesús Cáceres-Tello
-Department of Computer Systems and Computing
-Universidad Complutense de Madrid
+Jesús Cáceres Tello
+Complutense University of Madrid
 
-📧 [jcaceres.academic@gmail.com](mailto:jcaceres.academic@gmail.com)  
-📧 [jescacer@ucm.es](mailto:jescacer@ucm.es)
+📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com)
+📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
 
-⬅️ [Back to my main page](https://jcaceres-academic.github.io)
+⬅️ <https://jcaceres-academic.github.io>
 
-This repository supports open, transparent, and reproducible research in environmental data science and STEM education.
+This repository promotes **open, transparent, and reproducible research** in environmental data science.
