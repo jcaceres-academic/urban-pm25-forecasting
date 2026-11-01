@@ -61,6 +61,16 @@
   color: #f8d7da !important;             /* rosa claro al hover */
 }
 
+.navbar-nav .nav-link[href="https://jcaceres-academic.github.io/"] {
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.navbar-nav .nav-link[href="https://jcaceres-academic.github.io/"] i {
+  font-size: 1.2rem;
+  margin-right: 0.35rem;
+}
+
 /* ============================================================
    🔹 Encabezados generales dentro del contenido
    ============================================================ */

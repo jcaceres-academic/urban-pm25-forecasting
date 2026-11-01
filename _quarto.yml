@@ -12,6 +12,14 @@ website:
   navbar:
     background: "#7A0026"
     pinned: true
+    title: false
+    
+    left:
+      - icon: mortarboard-fill
+        text: "Academic Home"
+        href: https://jcaceres-academic.github.io/
+        target: "_self"
+        
     right:
       - icon: house
         text: "Home"
