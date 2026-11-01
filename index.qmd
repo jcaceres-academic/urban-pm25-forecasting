@@ -17,17 +17,13 @@ format:
     theme: cosmo
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
-[![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
-[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
-
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076) [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
 
 ## 🔗 Direct access
 
 -   🧪 [Scripts](scripts.html)
 -   💻 [Notebook](notebook.html)
 -   📄 [Article](https://doi.org/10.3390/appliedmath4040076)
-
 
 ## 🧠 Overview
 
@@ -37,19 +33,17 @@ This repository provides a **fully reproducible implementation** of the hybrid m
 
 The project integrates:
 
-- Statistical time series forecasting (Prophet)
-- Deep learning models (LSTM)
-- Environmental and temporal data
+-   Statistical time series forecasting (Prophet)
+-   Deep learning models (LSTM)
+-   Environmental and temporal data
 
 The objective is to combine **interpretability and predictive capacity** within a coherent modelling framework.
-
 
 ## 📍 Monitoring stations
 
 ![](images/Fig_PM25_Stations_Madrid.png){fig-align="center" width="85%"}
 
 **Fig. 1.** Spatial distribution of PM2.5 monitoring stations in Madrid used in the study.
-
 
 ## 🎯 Research motivation
 
@@ -64,33 +58,25 @@ Purely statistical models often lack flexibility, while deep learning approaches
 
 This motivates the use of **hybrid modelling strategies**.
 
-
 ## 🧩 Modelling workflow
 
 The analytical pipeline follows a structured sequence:
 
-1.  **Data acquisition and preprocessing**
-    Cleaning, validation, and temporal alignment of PM2.5 data.
+1.  **Data acquisition and preprocessing** Cleaning, validation, and temporal alignment of PM2.5 data.
 
-2.  **Exploratory analysis**
-    Identification of trends, variability, and seasonal patterns.
+2.  **Exploratory analysis** Identification of trends, variability, and seasonal patterns.
 
-3.  **Prophet modelling**
-    Decomposition of trend and seasonal components.
+3.  **Prophet modelling** Decomposition of trend and seasonal components.
 
-4.  **LSTM modelling**
-    Learning nonlinear temporal dependencies.
+4.  **LSTM modelling** Learning nonlinear temporal dependencies.
 
-5.  **Hybrid integration**
-    Combining Prophet outputs with LSTM predictions.
-
+5.  **Hybrid integration** Combining Prophet outputs with LSTM predictions.
 
 ## 📈 Forecasting results
 
 ![](images/Fig_Forecast_Madrid_Prophet_LSTM.png){fig-align="center" width="90%"}
 
 **Fig. 2.** PM2.5 forecasting using the hybrid Prophet–LSTM model, including historical data, observed values, and predicted trend with confidence interval.
-
 
 ## 🧭 Analytical approach
 
@@ -103,10 +89,9 @@ The modelling strategy is guided by the following principles:
 
 This approach balances methodological rigour and predictive performance.
 
-
 ## 🗂️ Repository structure
 
-```text
+``` text
 
 urban-pm25-forecasting/
 ├── docs/                      # GitHub Pages site
@@ -175,11 +160,9 @@ If you use this work, please cite:
 
 ## 📬 Contact
 
-Jesús Cáceres Tello
-Complutense University of Madrid
+Jesús Cáceres Tello Complutense University of Madrid
 
-📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com)
-📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
+📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com) 📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
 
 ⬅️ <https://jcaceres-academic.github.io>
 
