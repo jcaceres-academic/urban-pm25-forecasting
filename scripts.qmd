@@ -1,223 +1,136 @@
 ---
-title: "PM2.5 Forecasting Scripts"
-subtitle: "Reproducible implementation of the Prophet–LSTM hybrid modelling framework"
-author:
-  - name: "Jesús Cáceres Tello"
-    affiliation: "Complutense University of Madrid"
-    email: "jcaceres.academic@gmail.com"
-  - name: "José Javier Galán Hernández"
-    affiliation: "University of Alcalá"
-    email: "jose.galan@uah.es"
-date: "2024"
+title: "Scripts and Analytical Workflow"
+subtitle: "Original computational structure of the AppliedMath 2024 study"
 lang: en
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    theme: cosmo
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
-[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
+[![Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23880803)
 
+------------------------------------------------------------------------
 
-# 🧩 Overview
+## 🎯 Purpose
 
-This section documents the **Python scripts implementing the full analytical pipeline** for PM2.5 modelling in Madrid.
+This page documents the **original Python scripts and their role in the analytical workflow**.
 
-The repository is structured as a sequence of modular scripts. Each script corresponds to a specific stage of the workflow, from data preparation to hybrid forecasting.
+It intentionally contains no result figures. Analytical outputs are shown on the [project home](index.html) and in the [analytical notebook](notebook.html).
 
-The objective is to ensure **methodological transparency and reproducibility**, rather than interactive execution.
+------------------------------------------------------------------------
 
-# 📂 Script organisation
+## 🗂️ Script inventory
 
-The workflow is organised into the following stages:
+| Script | Main role |
+|---|---|
+| `01_data_preprocessing.py` | Clean, transform and prepare PM2.5 observations |
+| `02_spatial_analysis.py` | Analyse spatial variation in PM2.5 |
+| `03_descriptive_analysis.py` | Produce descriptive statistics and temporal summaries |
+| `04_trends_by_district.py` | Analyse temporal trends by district |
+| `05_districts_pm25_map.py` | Generate district-level PM2.5 maps |
+| `06_stations_map.py` | Generate the monitoring-station map |
+| `07_hybrid_forecasting.py` | Implement citywide Prophet-LSTM forecasting |
+| `08_district_forecasting.py` | Extend Prophet-LSTM forecasting to individual districts |
 
-``` text
-scripts/ 
-  ├── 01_data_preprocessing.py 
-  |
-  ├── 02_spatial_analysis.py 
-  |
-  ├── 03_descriptive_analysis.py 
-  |
-  ├── 04_trend_analysis.py 
-  |
-  ├── 05_district_map.py 
-  |
-  ├── 06_station_map.py 
-  |
-  ├── 07_hybrid_forecasting.py 
-  |
-  ├── 08_district_forecasting.py
+------------------------------------------------------------------------
+
+## 📁 Scripts directory
+
+```text
+scripts/
+├── 01_data_preprocessing.py
+├── 02_spatial_analysis.py
+├── 03_descriptive_analysis.py
+├── 04_trends_by_district.py
+├── 05_districts_pm25_map.py
+├── 06_stations_map.py
+├── 07_hybrid_forecasting.py
+├── 08_district_forecasting.py
+└── data/
 ```
 
-Each script can be executed independently, although they are designed to follow a logical sequence.
+------------------------------------------------------------------------
 
-## 🧱 Data preparation
+## 🔄 Execution logic
 
-### 01_data_preprocessing.py
+The analytical workflow can be summarised as:
 
-This script transforms raw air quality datasets into a structured format suitable for analysis.
+```text
+scripts/data/
+     ↓
+01_data_preprocessing.py
+     ↓
+├── 02_spatial_analysis.py
+├── 03_descriptive_analysis.py
+└── 04_trends_by_district.py
+     ↓
+├── 05_districts_pm25_map.py
+└── 06_stations_map.py
+     ↓
+07_hybrid_forecasting.py
+     ↓
+08_district_forecasting.py
+```
 
-It performs:
+The scripts are organised by analytical stage rather than by the order in which figures appear in the article.
 
--   Temporal parsing and validation
+------------------------------------------------------------------------
 
--   Reshaping daily measurements
+## 🧩 Workflow by stage
 
--   Filtering relevant pollutants
+### Data preparation
 
--   Integration with station metadata
+`01_data_preprocessing.py` creates the analysis-ready PM2.5 data structures used by the downstream scripts.
 
--   Generation of clean datasets
+### Descriptive and temporal analysis
 
-The output consists of **processed CSV files per year**, which are reused across all subsequent stages.
+`03_descriptive_analysis.py` and `04_trends_by_district.py` generate the statistical and temporal summaries used to characterise PM2.5 evolution.
 
-# 🗺️ Spatial analysis
+### Spatial analysis
 
-### 02_spatial_analysis.py
+`02_spatial_analysis.py`, `05_districts_pm25_map.py` and `06_stations_map.py` support spatial interpretation and monitoring-network visualisation.
 
-This script generates district-level representations of PM2.5 concentrations.
+### Forecasting
 
-It includes:
+`07_hybrid_forecasting.py` implements the citywide Prophet-LSTM workflow.
 
--   Aggregation of data by district and year
+`08_district_forecasting.py` applies the forecasting framework at district level.
 
--   Harmonisation of district naming conventions
+------------------------------------------------------------------------
 
--   Integration with geographic shapefiles
+## 📁 Repository structure
 
--   Production of choropleth maps
+```text
+urban-pm25-forecasting/
+├── images/
+├── scripts/
+│   ├── 01_data_preprocessing.py
+│   ├── 02_spatial_analysis.py
+│   ├── 03_descriptive_analysis.py
+│   ├── 04_trends_by_district.py
+│   ├── 05_districts_pm25_map.py
+│   ├── 06_stations_map.py
+│   ├── 07_hybrid_forecasting.py
+│   ├── 08_district_forecasting.py
+│   └── data/
+├── index.qmd
+├── notebook.qmd
+├── scripts.qmd
+├── references.bib
+├── _quarto.yml
+├── styles.css
+├── LICENSE
+└── README.md
+```
 
-These outputs support the interpretation of spatial variability in air pollution.
+------------------------------------------------------------------------
 
-## 📊 Descriptive analysis
+## 📚 Persistent references
 
-### 03_descriptive_analysis.py
+**Article DOI:** [10.3390/appliedmath4040076](https://doi.org/10.3390/appliedmath4040076)
 
-This stage provides a statistical overview of PM2.5 behaviour.
+**Zenodo bibliographic reference set:** [10.5281/zenodo.23880803](https://doi.org/10.5281/zenodo.23880803)
 
-The analysis includes:
+------------------------------------------------------------------------
 
--   Summary statistics by year
+## ⬅️ Navigation
 
--   Distributional analysis
-
--   Identification of variability patterns
-
-These results help characterise the structure of the dataset prior to modelling.
-
-## 📈 Temporal trend analysis
-
-### 04_trend_analysis.py
-
-This script examines temporal dynamics across districts.
-
-It focuses on:
-
--   Aggregation of PM2.5 levels over time
-
--   Comparison between districts
-
--   Identification of heterogeneous patterns
-
-This step provides context for understanding spatial and temporal dependencies.
-
-## 📍 Monitoring network representation
-
-### 05_district_map.py
-
-### 06_station_map.py
-
-These scripts generate spatial visualisations of the monitoring infrastructure.
-
-They include:
-
--   District boundaries
-
--   Locations of monitoring stations
-
--   Identification of districts with PM2.5 measurements
-
-These maps provide essential geographical context for the analysis.
-
-## 🤖 Hybrid forecasting model
-
-### 07_hybrid_forecasting.py
-
-This script implements the core **Prophet–LSTM hybrid model**.
-
-The modelling pipeline consists of:
-
--   Daily aggregation of PM2.5
-
--   Prophet-based trend and seasonality modelling
-
--   Residual computation
-
--   Normalisation of residuals
-
--   LSTM-based learning of nonlinear patterns
-
--   Forecasting of residual dynamics
-
--   Reconstruction of the hybrid prediction
-
-The output corresponds to the main forecasting results presented in the study.
-
-## 🏙️ District-level forecasting
-
-### 08_district_forecasting.py
-
-This script extends the hybrid modelling framework to individual districts.
-
-It includes:
-
--   Filtering of district-specific data
-
--   Independent model training per district
-
--   Local forecasting
-
--   Comparison between predicted and observed values
-
-This approach highlights spatial heterogeneity in predictive performance.
-
-# ⚙️ Execution notes
-
-The scripts were originally developed in a cloud-based environment and later adapted for local execution.
-
-To run the workflow locally:
-
--   Ensure that all datasets are available in the `/data` directory
-
--   Adjust file paths if necessary
-
--   Install required Python dependencies
-
-The scripts are intended to be executed sequentially but remain modular.
-
-# 🔁 Reproducibility statement
-
-This repository provides a **complete and transparent implementation of the analytical workflow**.
-
-All data transformations, modelling steps, and visualisations are explicitly defined.
-
-The objective is to ensure:
-
--   reproducibility of results
-
--   traceability of the analytical process
-
--   methodological clarity
-
-# 🌐 Data availability
-
-All datasets and supplementary materials are available at:
-
-<https://doi.org/10.5281/zenodo.19659982>
-
-Note: The Zenodo archive contains additional materials from related research.\
-Only the scripts described in this section are required to reproduce the results presented in this study.
+[Project home](index.html) · [Analytical notebook](notebook.html) · [Academic Home](https://jcaceres-academic.github.io/)

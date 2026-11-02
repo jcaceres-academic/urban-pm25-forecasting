@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jesús Cáceres Tello">
-<meta name="author" content="José Javier Galán Hernández">
-<meta name="dcterms.date" content="2024-01-01">
 
-<title>PM2.5 Forecasting Scripts – Urban PM2.5 Imbalance Evaluation</title>
+<title>Scripts and Analytical Workflow – Urban PM2.5 Prophet-LSTM</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Scripts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation" target="_blank"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-prophet-lstm" target="_blank"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text">GitHub</span></a>
   </li>  
@@ -116,22 +113,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul class="collapse">
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">🧩 Overview</a></li>
-  <li><a href="#script-organisation" id="toc-script-organisation" class="nav-link" data-scroll-target="#script-organisation">📂 Script organisation</a>
-  <ul class="collapse">
-  <li><a href="#data-preparation" id="toc-data-preparation" class="nav-link" data-scroll-target="#data-preparation">🧱 Data preparation</a></li>
-  </ul></li>
-  <li><a href="#spatial-analysis" id="toc-spatial-analysis" class="nav-link" data-scroll-target="#spatial-analysis">🗺️ Spatial analysis</a>
-  <ul class="collapse">
-  <li><a href="#descriptive-analysis" id="toc-descriptive-analysis" class="nav-link" data-scroll-target="#descriptive-analysis">📊 Descriptive analysis</a></li>
-  <li><a href="#temporal-trend-analysis" id="toc-temporal-trend-analysis" class="nav-link" data-scroll-target="#temporal-trend-analysis">📈 Temporal trend analysis</a></li>
-  <li><a href="#monitoring-network-representation" id="toc-monitoring-network-representation" class="nav-link" data-scroll-target="#monitoring-network-representation">📍 Monitoring network representation</a></li>
-  <li><a href="#hybrid-forecasting-model" id="toc-hybrid-forecasting-model" class="nav-link" data-scroll-target="#hybrid-forecasting-model">🤖 Hybrid forecasting model</a></li>
-  <li><a href="#district-level-forecasting" id="toc-district-level-forecasting" class="nav-link" data-scroll-target="#district-level-forecasting">🏙️ District-level forecasting</a></li>
-  </ul></li>
-  <li><a href="#execution-notes" id="toc-execution-notes" class="nav-link" data-scroll-target="#execution-notes">⚙️ Execution notes</a></li>
-  <li><a href="#reproducibility-statement" id="toc-reproducibility-statement" class="nav-link" data-scroll-target="#reproducibility-statement">🔁 Reproducibility statement</a></li>
-  <li><a href="#data-availability" id="toc-data-availability" class="nav-link" data-scroll-target="#data-availability">🌐 Data availability</a></li>
+  <li><a href="#purpose" id="toc-purpose" class="nav-link active" data-scroll-target="#purpose">🎯 Purpose</a></li>
+  <li><a href="#script-inventory" id="toc-script-inventory" class="nav-link" data-scroll-target="#script-inventory">🗂️ Script inventory</a></li>
+  <li><a href="#scripts-directory" id="toc-scripts-directory" class="nav-link" data-scroll-target="#scripts-directory">📁 Scripts directory</a></li>
+  <li><a href="#execution-logic" id="toc-execution-logic" class="nav-link" data-scroll-target="#execution-logic">🔄 Execution logic</a></li>
+  <li><a href="#workflow-by-stage" id="toc-workflow-by-stage" class="nav-link" data-scroll-target="#workflow-by-stage">🧩 Workflow by stage</a></li>
+  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">📁 Repository structure</a></li>
+  <li><a href="#persistent-references" id="toc-persistent-references" class="nav-link" data-scroll-target="#persistent-references">📚 Persistent references</a></li>
+  <li><a href="#navigation" id="toc-navigation" class="nav-link" data-scroll-target="#navigation">⬅️ Navigation</a></li>
   </ul>
 </nav>
 </nav>
@@ -144,42 +133,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">PM2.5 Forecasting Scripts</h1>
-<p class="subtitle lead">Reproducible implementation of the Prophet–LSTM hybrid modelling framework</p>
+<h1 class="title">Scripts and Analytical Workflow</h1>
+<p class="subtitle lead">Original computational structure of the AppliedMath 2024 study</p>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Jesús Cáceres Tello <a href="mailto:jcaceres.academic@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Complutense University of Madrid
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">José Javier Galán Hernández <a href="mailto:jose.galan@uah.es" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            University of Alcalá
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2024</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -189,171 +151,152 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" class="img-fluid" alt="License: CC BY 4.0"></a> <a href="https://doi.org/10.3390/appliedmath4040076"><img src="https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg" class="img-fluid" alt="DOI"></a> <a href="https://doi.org/10.5281/zenodo.19659982"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg" class="img-fluid" alt="Zenodo DOI"></a></p>
-<section id="overview" class="level1">
-<h1>🧩 Overview</h1>
-<p>This section documents the <strong>Python scripts implementing the full analytical pipeline</strong> for PM2.5 modelling in Madrid.</p>
-<p>The repository is structured as a sequence of modular scripts. Each script corresponds to a specific stage of the workflow, from data preparation to hybrid forecasting.</p>
-<p>The objective is to ensure <strong>methodological transparency and reproducibility</strong>, rather than interactive execution.</p>
+<p><a href="https://doi.org/10.3390/appliedmath4040076"><img src="https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg" class="img-fluid" alt="DOI"></a> <a href="https://doi.org/10.5281/zenodo.23880803"><img src="https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&amp;logoColor=white" class="img-fluid" alt="Zenodo"></a></p>
+<hr>
+<section id="purpose" class="level2">
+<h2 class="anchored" data-anchor-id="purpose">🎯 Purpose</h2>
+<p>This page documents the <strong>original Python scripts and their role in the analytical workflow</strong>.</p>
+<p>It intentionally contains no result figures. Analytical outputs are shown on the <a href="index.html">project home</a> and in the <a href="notebook.html">analytical notebook</a>.</p>
+<hr>
 </section>
-<section id="script-organisation" class="level1">
-<h1>📂 Script organisation</h1>
-<p>The workflow is organised into the following stages:</p>
-<pre class="text"><code>scripts/ 
-  ├── 01_data_preprocessing.py 
-  |
-  ├── 02_spatial_analysis.py 
-  |
-  ├── 03_descriptive_analysis.py 
-  |
-  ├── 04_trend_analysis.py 
-  |
-  ├── 05_district_map.py 
-  |
-  ├── 06_station_map.py 
-  |
-  ├── 07_hybrid_forecasting.py 
-  |
-  ├── 08_district_forecasting.py</code></pre>
-<p>Each script can be executed independently, although they are designed to follow a logical sequence.</p>
-<section id="data-preparation" class="level2">
-<h2 class="anchored" data-anchor-id="data-preparation">🧱 Data preparation</h2>
-<section id="data_preprocessing.py" class="level3">
-<h3 class="anchored" data-anchor-id="data_preprocessing.py">01_data_preprocessing.py</h3>
-<p>This script transforms raw air quality datasets into a structured format suitable for analysis.</p>
-<p>It performs:</p>
-<ul>
-<li><p>Temporal parsing and validation</p></li>
-<li><p>Reshaping daily measurements</p></li>
-<li><p>Filtering relevant pollutants</p></li>
-<li><p>Integration with station metadata</p></li>
-<li><p>Generation of clean datasets</p></li>
-</ul>
-<p>The output consists of <strong>processed CSV files per year</strong>, which are reused across all subsequent stages.</p>
+<section id="script-inventory" class="level2">
+<h2 class="anchored" data-anchor-id="script-inventory">🗂️ Script inventory</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Script</th>
+<th>Main role</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>01_data_preprocessing.py</code></td>
+<td>Clean, transform and prepare PM2.5 observations</td>
+</tr>
+<tr class="even">
+<td><code>02_spatial_analysis.py</code></td>
+<td>Analyse spatial variation in PM2.5</td>
+</tr>
+<tr class="odd">
+<td><code>03_descriptive_analysis.py</code></td>
+<td>Produce descriptive statistics and temporal summaries</td>
+</tr>
+<tr class="even">
+<td><code>04_trends_by_district.py</code></td>
+<td>Analyse temporal trends by district</td>
+</tr>
+<tr class="odd">
+<td><code>05_districts_pm25_map.py</code></td>
+<td>Generate district-level PM2.5 maps</td>
+</tr>
+<tr class="even">
+<td><code>06_stations_map.py</code></td>
+<td>Generate the monitoring-station map</td>
+</tr>
+<tr class="odd">
+<td><code>07_hybrid_forecasting.py</code></td>
+<td>Implement citywide Prophet-LSTM forecasting</td>
+</tr>
+<tr class="even">
+<td><code>08_district_forecasting.py</code></td>
+<td>Extend Prophet-LSTM forecasting to individual districts</td>
+</tr>
+</tbody>
+</table>
+<hr>
 </section>
+<section id="scripts-directory" class="level2">
+<h2 class="anchored" data-anchor-id="scripts-directory">📁 Scripts directory</h2>
+<pre class="text"><code>scripts/
+├── 01_data_preprocessing.py
+├── 02_spatial_analysis.py
+├── 03_descriptive_analysis.py
+├── 04_trends_by_district.py
+├── 05_districts_pm25_map.py
+├── 06_stations_map.py
+├── 07_hybrid_forecasting.py
+├── 08_district_forecasting.py
+└── data/</code></pre>
+<hr>
 </section>
+<section id="execution-logic" class="level2">
+<h2 class="anchored" data-anchor-id="execution-logic">🔄 Execution logic</h2>
+<p>The analytical workflow can be summarised as:</p>
+<pre class="text"><code>scripts/data/
+     ↓
+01_data_preprocessing.py
+     ↓
+├── 02_spatial_analysis.py
+├── 03_descriptive_analysis.py
+└── 04_trends_by_district.py
+     ↓
+├── 05_districts_pm25_map.py
+└── 06_stations_map.py
+     ↓
+07_hybrid_forecasting.py
+     ↓
+08_district_forecasting.py</code></pre>
+<p>The scripts are organised by analytical stage rather than by the order in which figures appear in the article.</p>
+<hr>
 </section>
-<section id="spatial-analysis" class="level1">
-<h1>🗺️ Spatial analysis</h1>
-<section id="spatial_analysis.py" class="level3">
-<h3 class="anchored" data-anchor-id="spatial_analysis.py">02_spatial_analysis.py</h3>
-<p>This script generates district-level representations of PM2.5 concentrations.</p>
-<p>It includes:</p>
-<ul>
-<li><p>Aggregation of data by district and year</p></li>
-<li><p>Harmonisation of district naming conventions</p></li>
-<li><p>Integration with geographic shapefiles</p></li>
-<li><p>Production of choropleth maps</p></li>
-</ul>
-<p>These outputs support the interpretation of spatial variability in air pollution.</p>
+<section id="workflow-by-stage" class="level2">
+<h2 class="anchored" data-anchor-id="workflow-by-stage">🧩 Workflow by stage</h2>
+<section id="data-preparation" class="level3">
+<h3 class="anchored" data-anchor-id="data-preparation">Data preparation</h3>
+<p><code>01_data_preprocessing.py</code> creates the analysis-ready PM2.5 data structures used by the downstream scripts.</p>
 </section>
-<section id="descriptive-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="descriptive-analysis">📊 Descriptive analysis</h2>
-<section id="descriptive_analysis.py" class="level3">
-<h3 class="anchored" data-anchor-id="descriptive_analysis.py">03_descriptive_analysis.py</h3>
-<p>This stage provides a statistical overview of PM2.5 behaviour.</p>
-<p>The analysis includes:</p>
-<ul>
-<li><p>Summary statistics by year</p></li>
-<li><p>Distributional analysis</p></li>
-<li><p>Identification of variability patterns</p></li>
-</ul>
-<p>These results help characterise the structure of the dataset prior to modelling.</p>
+<section id="descriptive-and-temporal-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-and-temporal-analysis">Descriptive and temporal analysis</h3>
+<p><code>03_descriptive_analysis.py</code> and <code>04_trends_by_district.py</code> generate the statistical and temporal summaries used to characterise PM2.5 evolution.</p>
 </section>
+<section id="spatial-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="spatial-analysis">Spatial analysis</h3>
+<p><code>02_spatial_analysis.py</code>, <code>05_districts_pm25_map.py</code> and <code>06_stations_map.py</code> support spatial interpretation and monitoring-network visualisation.</p>
 </section>
-<section id="temporal-trend-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="temporal-trend-analysis">📈 Temporal trend analysis</h2>
-<section id="trend_analysis.py" class="level3">
-<h3 class="anchored" data-anchor-id="trend_analysis.py">04_trend_analysis.py</h3>
-<p>This script examines temporal dynamics across districts.</p>
-<p>It focuses on:</p>
-<ul>
-<li><p>Aggregation of PM2.5 levels over time</p></li>
-<li><p>Comparison between districts</p></li>
-<li><p>Identification of heterogeneous patterns</p></li>
-</ul>
-<p>This step provides context for understanding spatial and temporal dependencies.</p>
-</section>
-</section>
-<section id="monitoring-network-representation" class="level2">
-<h2 class="anchored" data-anchor-id="monitoring-network-representation">📍 Monitoring network representation</h2>
-<section id="district_map.py" class="level3">
-<h3 class="anchored" data-anchor-id="district_map.py">05_district_map.py</h3>
-</section>
-<section id="station_map.py" class="level3">
-<h3 class="anchored" data-anchor-id="station_map.py">06_station_map.py</h3>
-<p>These scripts generate spatial visualisations of the monitoring infrastructure.</p>
-<p>They include:</p>
-<ul>
-<li><p>District boundaries</p></li>
-<li><p>Locations of monitoring stations</p></li>
-<li><p>Identification of districts with PM2.5 measurements</p></li>
-</ul>
-<p>These maps provide essential geographical context for the analysis.</p>
-</section>
-</section>
-<section id="hybrid-forecasting-model" class="level2">
-<h2 class="anchored" data-anchor-id="hybrid-forecasting-model">🤖 Hybrid forecasting model</h2>
-<section id="hybrid_forecasting.py" class="level3">
-<h3 class="anchored" data-anchor-id="hybrid_forecasting.py">07_hybrid_forecasting.py</h3>
-<p>This script implements the core <strong>Prophet–LSTM hybrid model</strong>.</p>
-<p>The modelling pipeline consists of:</p>
-<ul>
-<li><p>Daily aggregation of PM2.5</p></li>
-<li><p>Prophet-based trend and seasonality modelling</p></li>
-<li><p>Residual computation</p></li>
-<li><p>Normalisation of residuals</p></li>
-<li><p>LSTM-based learning of nonlinear patterns</p></li>
-<li><p>Forecasting of residual dynamics</p></li>
-<li><p>Reconstruction of the hybrid prediction</p></li>
-</ul>
-<p>The output corresponds to the main forecasting results presented in the study.</p>
+<section id="forecasting" class="level3">
+<h3 class="anchored" data-anchor-id="forecasting">Forecasting</h3>
+<p><code>07_hybrid_forecasting.py</code> implements the citywide Prophet-LSTM workflow.</p>
+<p><code>08_district_forecasting.py</code> applies the forecasting framework at district level.</p>
+<hr>
 </section>
 </section>
-<section id="district-level-forecasting" class="level2">
-<h2 class="anchored" data-anchor-id="district-level-forecasting">🏙️ District-level forecasting</h2>
-<section id="district_forecasting.py" class="level3">
-<h3 class="anchored" data-anchor-id="district_forecasting.py">08_district_forecasting.py</h3>
-<p>This script extends the hybrid modelling framework to individual districts.</p>
-<p>It includes:</p>
-<ul>
-<li><p>Filtering of district-specific data</p></li>
-<li><p>Independent model training per district</p></li>
-<li><p>Local forecasting</p></li>
-<li><p>Comparison between predicted and observed values</p></li>
-</ul>
-<p>This approach highlights spatial heterogeneity in predictive performance.</p>
+<section id="repository-structure" class="level2">
+<h2 class="anchored" data-anchor-id="repository-structure">📁 Repository structure</h2>
+<pre class="text"><code>urban-pm25-forecasting/
+├── images/
+├── scripts/
+│   ├── 01_data_preprocessing.py
+│   ├── 02_spatial_analysis.py
+│   ├── 03_descriptive_analysis.py
+│   ├── 04_trends_by_district.py
+│   ├── 05_districts_pm25_map.py
+│   ├── 06_stations_map.py
+│   ├── 07_hybrid_forecasting.py
+│   ├── 08_district_forecasting.py
+│   └── data/
+├── index.qmd
+├── notebook.qmd
+├── scripts.qmd
+├── references.bib
+├── _quarto.yml
+├── styles.css
+├── LICENSE
+└── README.md</code></pre>
+<hr>
 </section>
+<section id="persistent-references" class="level2">
+<h2 class="anchored" data-anchor-id="persistent-references">📚 Persistent references</h2>
+<p><strong>Article DOI:</strong> <a href="https://doi.org/10.3390/appliedmath4040076">10.3390/appliedmath4040076</a></p>
+<p><strong>Zenodo bibliographic reference set:</strong> <a href="https://doi.org/10.5281/zenodo.23880803">10.5281/zenodo.23880803</a></p>
+<hr>
 </section>
-</section>
-<section id="execution-notes" class="level1">
-<h1>⚙️ Execution notes</h1>
-<p>The scripts were originally developed in a cloud-based environment and later adapted for local execution.</p>
-<p>To run the workflow locally:</p>
-<ul>
-<li><p>Ensure that all datasets are available in the <code>/data</code> directory</p></li>
-<li><p>Adjust file paths if necessary</p></li>
-<li><p>Install required Python dependencies</p></li>
-</ul>
-<p>The scripts are intended to be executed sequentially but remain modular.</p>
-</section>
-<section id="reproducibility-statement" class="level1">
-<h1>🔁 Reproducibility statement</h1>
-<p>This repository provides a <strong>complete and transparent implementation of the analytical workflow</strong>.</p>
-<p>All data transformations, modelling steps, and visualisations are explicitly defined.</p>
-<p>The objective is to ensure:</p>
-<ul>
-<li><p>reproducibility of results</p></li>
-<li><p>traceability of the analytical process</p></li>
-<li><p>methodological clarity</p></li>
-</ul>
-</section>
-<section id="data-availability" class="level1">
-<h1>🌐 Data availability</h1>
-<p>All datasets and supplementary materials are available at:</p>
-<p><a href="https://doi.org/10.5281/zenodo.19659982" class="uri">https://doi.org/10.5281/zenodo.19659982</a></p>
-<p>Note: The Zenodo archive contains additional materials from related research.<br>
-Only the scripts described in this section are required to reproduce the results presented in this study.</p>
+<section id="navigation" class="level2">
+<h2 class="anchored" data-anchor-id="navigation">⬅️ Navigation</h2>
+<p><a href="index.html">Project home</a> · <a href="notebook.html">Analytical notebook</a> · <a href="https://jcaceres-academic.github.io/">Academic Home</a></p>
 
 
 </section>
@@ -451,7 +394,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-imbalance-evaluation\/");
+      var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-prophet-lstm\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

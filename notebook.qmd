@@ -1,156 +1,138 @@
 ---
-title: "PM2.5 Forecasting Workflow"
-subtitle: "Reproducible implementation of the Prophet–LSTM hybrid modelling framework"
-author:
-  - name: "Jesús Cáceres-Tello"
-  - name: "José Javier Galán-Hernández"
+title: "Analytical Notebook"
+subtitle: "Data, spatial analysis and district-level PM2.5 results"
 lang: en
-link-citations: true
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    number-sections: true
-    code-fold: true
-    theme: cosmo
-execute:
-  echo: true
-  warning: false
-  message: false
-  engine: python
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
-[![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
-
-# 📂 Data acquisition and processing
-
-## Analytical context
-
-This notebook implements the reproducible workflow underlying the PM2.5 forecasting study in Madrid. The analysis is based on daily concentration measurements obtained from the urban monitoring network and organised as a structured time series.
-
-At this stage, the objective is not to extract insight but to ensure that the data are consistent, chronologically ordered, and suitable for modelling. Particular attention is given to temporal integrity and the handling of missing observations, as these aspects directly affect downstream performance.
-
-## Monitoring stations
-
-![](images/Fig_PM25_Stations_Madrid.png){fig-align="center" width="85%"}
-
-**Fig. 1.** Spatial distribution of PM2.5 monitoring stations in Madrid.
-
-## Spatial variability
-
-![](images/PM25_LevelsDistrict_3.png){fig-align="center" width="70%"}
-
-**Fig. 2.** Spatial distribution of PM2.5 concentration levels across districts in Madrid.
-
-Although the forecasting task is approached as a temporal problem, spatial variability provides important contextual information. Differences across districts reflect heterogeneous urban dynamics, which indirectly influence the temporal behaviour captured by the models.
-
-# 🔍 Exploratory data analysis
-
-## Analytical workflow
-
-![](images/Fig_Crisp_DM_model.png){fig-align="center" width="65%"}
-
-**Fig. 3.** Conceptual workflow of the PM2.5 forecasting process, from data acquisition to model evaluation.
-
-This schematic representation summarises the structure of the analytical pipeline. While simplified, it reflects the sequential nature of the workflow implemented in this study, where each stage builds upon the previous one.
-
-## Temporal structure
-
-Before introducing predictive models, it is necessary to understand the temporal characteristics of the data. The PM2.5 signal combines short-term variability with broader seasonal patterns, reflecting both local dynamics and environmental conditions.
-
-This stage provides a structural understanding of the series rather than an exhaustive exploratory analysis.
+[![Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23880803)
 
 ------------------------------------------------------------------------
 
-# 📐 Prophet modelling
+## 🧠 Purpose
 
-## Analytical context
+This notebook complements the project home page by documenting the **data context, monitoring coverage, preprocessing, descriptive analysis, district-level patterns and spatial results**.
 
-Prophet is used as an initial modelling approach due to its ability to decompose the time series into interpretable components such as trend and seasonality. This provides a transparent baseline for understanding the dominant structure of the data.
-
-Rather than focusing on optimisation, the objective is to establish a stable and interpretable reference model.
+The project home already presents the central methodological framework, citywide temporal evolution and citywide Prophet-LSTM forecast. Those figures are intentionally not repeated here.
 
 ------------------------------------------------------------------------
 
-# 🤖 LSTM modelling
+## 🌫️ Environmental context
 
-## Analytical context
+The study begins by positioning PM2.5 within the broader health relevance of urban atmospheric pollutants.
 
-To complement the statistical structure captured by Prophet, LSTM networks are introduced to model nonlinear temporal dependencies. These architectures are particularly suited to capturing patterns that evolve over time and are not easily represented through additive components.
+![](images/Imagen1.png){fig-align="center" width="70%"}
 
-The LSTM model focuses on short-term dynamics and local fluctuations.
+**Fig. 1.** Relative hazard index of the pollutants considered in the study.
 
-------------------------------------------------------------------------
+The article also reviewed the evolution of scientific interest in PM2.5. One representative bibliometric view is retained here:
 
-# 🔗 Hybrid Prophet–LSTM integration
+![](images/Imagen2.png){fig-align="center" width="72%"}
 
-## Analytical context
+**Fig. 2.** Publications related to Madrid and PM2.5 by year.
 
-The hybrid modelling strategy combines the strengths of both approaches. Prophet captures the global structure of the series, while LSTM refines the prediction by learning nonlinear residual behaviour.
-
-This integration reflects a complementary modelling philosophy, where interpretability and flexibility are balanced.
+Additional bibliometric figures remain available in the `images/` directory but are not rendered here to keep the notebook focused.
 
 ------------------------------------------------------------------------
 
-# 📈 Forecasting results
+## 🌍 Monitoring coverage
 
-![](images/Fig_Forecast_Madrid_Prophet_LSTM.png){fig-align="center" width="90%"}
+The analysis uses official observations from the Madrid City Council air-quality monitoring network.
 
-**Fig. 4.** PM2.5 forecasting results using the hybrid Prophet–LSTM model.
+![](images/Imagen6.png){fig-align="center" width="66%"}
 
-## Interpretation
+**Fig. 3.** Madrid air-quality monitoring stations.
 
-The hybrid model produces forecasts that align coherently with observed data, capturing both the underlying trend and short-term variability. This behaviour illustrates the advantage of combining statistical decomposition with sequence-based learning.
+PM2.5 measurements are available only for a subset of districts:
 
-------------------------------------------------------------------------
+![](images/Imagen7.png){fig-align="center" width="66%"}
 
-# ⚖️ Model evaluation
+**Fig. 4.** Districts with direct PM2.5 monitoring coverage.
 
-## Evaluation strategy
-
-Model performance is assessed using standard forecasting error metrics, ensuring that evaluation reflects realistic predictive conditions. A time-based validation strategy is applied to preserve chronological integrity.
-
-The objective is not to maximise performance metrics, but to ensure methodological coherence and interpretability.
+The analysed districts include Chamartín, Chamberí, Moncloa-Aravaca, Salamanca, Arganzuela, Carabanchel and Hortaleza.
 
 ------------------------------------------------------------------------
 
-# 🧭 Methodological implications
+## 🔄 Data preparation
 
-The workflow presented in this notebook highlights several important aspects. Preserving temporal structure is essential in environmental forecasting, as random sampling would distort the evaluation process.
+The raw municipal files were transformed into an analysis-ready structure before descriptive, spatial and predictive analysis.
 
-In addition, hybrid approaches demonstrate that combining models can be more effective than relying on a single paradigm, particularly when different aspects of the signal must be captured.
+![](images/Imagen8.png){fig-align="center" width="78%"}
 
-Finally, the use of a fully reproducible pipeline ensures transparency and facilitates reuse in future research.
+**Fig. 5.** Data acquisition and preprocessing workflow.
+
+The preprocessing stage integrates observations across years and reorganises the source data by date, monitoring station, neighbourhood, district and pollutant.
 
 ------------------------------------------------------------------------
 
-# 🌐 Repository and citation
+## 📊 Descriptive analysis
 
-All code, data, and materials are openly available at:
+The descriptive analysis characterises the distribution and variability of PM2.5 over the study period.
 
-➡️ https://github.com/jcaceres-academic/urban-pm25-forecasting
+![](images/Imagen9.png){fig-align="center" width="84%"}
 
-Zenodo archive:
+**Fig. 6.** Descriptive statistics of PM2.5 concentrations from 2019 to 2024.
 
-➡️ https://doi.org/10.5281/zenodo.19659982
+The results show a reduction in central tendency over time, together with persistent variability and episodic high-concentration events.
 
-## Citation
+------------------------------------------------------------------------
 
-> Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).\
-> Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\
-> *AppliedMath*, 4(4), 1428–1452.\
-> https://doi.org/10.3390/appliedmath4040076
+## 📈 District-level temporal behaviour
 
-## 📬 Contact
+District-level analysis reveals that the temporal evolution of PM2.5 is not spatially homogeneous.
 
-Jesús Cáceres Tello
-Complutense University of Madrid
+![](images/Imagen10.png){fig-align="center" width="84%"}
 
-📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com)
-📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
+**Fig. 7.** PM2.5 trends by district from 2019 to 2023.
 
-⬅️ <https://jcaceres-academic.github.io>
+A complementary district-by-district representation provides a more detailed view of the evolution relative to reference levels:
 
-This repository promotes **open, transparent, and reproducible research** in environmental data science.
+![](images/Imagen12.png){fig-align="center" width="88%"}
+
+**Fig. 8.** PM2.5 evolution by monitored district.
+
+------------------------------------------------------------------------
+
+## 🗺️ Spatial analysis
+
+The spatial analysis summarises how PM2.5 concentrations vary across the monitored districts and over time.
+
+![](images/Imagen13.png){fig-align="center" width="82%"}
+
+**Fig. 9.** Spatial distribution of PM2.5 concentrations by district.
+
+This result supports the use of district-level analysis rather than relying exclusively on citywide averages.
+
+------------------------------------------------------------------------
+
+## 🤖 District-level forecasting
+
+The citywide Prophet-LSTM result is presented on the project home page. The district-level extension is shown here:
+
+![](images/Imagen15.png){fig-align="center" width="88%"}
+
+**Fig. 10.** Prophet-LSTM forecasts for individual Madrid districts.
+
+This extension allows the forecasting framework to reflect local temporal differences across the monitored areas.
+
+------------------------------------------------------------------------
+
+## 🔬 Reproducibility notes
+
+The repository preserves the original analytical Python scripts and the associated data folder.
+
+The figures shown in this notebook are selected published outputs used to document the analytical stages. The complete script inventory and execution structure are described separately in [Scripts and workflow](scripts.html).
+
+------------------------------------------------------------------------
+
+## 📚 Persistent references
+
+**Article DOI:** [10.3390/appliedmath4040076](https://doi.org/10.3390/appliedmath4040076)
+
+**Zenodo bibliographic reference set:** [10.5281/zenodo.23880803](https://doi.org/10.5281/zenodo.23880803)
+
+------------------------------------------------------------------------
+
+## ⬅️ Navigation
+
+[Project home](index.html) · [Scripts and workflow](scripts.html) · [Academic Home](https://jcaceres-academic.github.io/)

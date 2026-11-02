@@ -3,9 +3,9 @@ project:
   output-dir: docs
 
 website:
-  title: "Urban PM2.5 Imbalance Evaluation"
-  site-url: https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/
-  description: "A reproducible evaluation framework for urban PM2.5 classification under class imbalance and operational constraints"
+  title: "Urban PM2.5 Prophet-LSTM"
+  site-url: https://jcaceres-academic.github.io/urban-pm25-prophet-lstm/
+  description: "Reproducible analysis and forecasting of urban PM2.5 in Madrid using CRISP-DM and hybrid Prophet-LSTM models."
   page-navigation: true
   search: false
 
@@ -13,13 +13,13 @@ website:
     background: "#7A0026"
     pinned: true
     title: false
-    
+
     left:
       - icon: mortarboard-fill
         text: "Academic Home"
         href: https://jcaceres-academic.github.io/
         target: "_self"
-        
+
     right:
       - icon: house
         text: "Home"
@@ -43,7 +43,7 @@ website:
 
       - icon: github
         text: "GitHub"
-        href: https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation
+        href: https://github.com/jcaceres-academic/urban-pm25-prophet-lstm
         target: "_blank"
 
 format:

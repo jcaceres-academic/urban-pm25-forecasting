@@ -1,169 +1,119 @@
 ---
-title: "PM2.5 Pollution Analysis and Prediction in Madrid"
-subtitle: "Analysis and Prediction of PM2.5 Pollution in Madrid: Use of Prophet–LSTM Hybrid Models"
-author:
-  - name: "Jesús Cáceres Tello"
-    affiliation: "Complutense University of Madrid"
-    email: "jcaceres.academic@gmail.com"
-  - name: "José Javier Galán Hernández"
-    affiliation: "University of Alcalá"
-    email: "jose.galan@uah.es"
-date: "2024"
+title: "Analysis and Prediction of PM2.5 Pollution in Madrid"
+subtitle: "CRISP-DM and hybrid Prophet-LSTM models for urban air-quality forecasting"
 lang: en
-format:
-  html:
-    toc: true
-    toc-depth: 2
-    theme: cosmo
 ---
 
-[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/) [![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076) [![Zenodo DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg)](https://doi.org/10.5281/zenodo.19659982)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
+[![Rendered with Quarto](https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg)](https://quarto.org/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/jcaceres-academic/urban-pm25-forecasting)
+[![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
+[![Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23880803)
+
+------------------------------------------------------------------------
 
 ## 🔗 Direct access
 
--   🧪 [Scripts](scripts.html)
--   💻 [Notebook](notebook.html)
--   📄 [Article](https://doi.org/10.3390/appliedmath4040076)
+- 📄 [Published article](https://doi.org/10.3390/appliedmath4040076)
+- 💻 [Analytical notebook](notebook.html)
+- 🧪 [Scripts and workflow](scripts.html)
+- 💾 [GitHub repository](https://github.com/jcaceres-academic/urban-pm25-forecasting)
+- 📚 [Bibliographic reference set](https://doi.org/10.5281/zenodo.23880803)
+
+------------------------------------------------------------------------
 
 ## 🧠 Overview
 
-This repository provides a **fully reproducible implementation** of the hybrid modelling framework presented in:
+This repository contains the reproducible materials associated with the article **“Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.”**
 
-**Analysis and Prediction of PM2.5 Pollution in Madrid using Prophet–LSTM hybrid models**
+The study analyses urban PM2.5 pollution in Madrid using:
 
-The project integrates:
+- official open data from the Madrid City Council;
+- a structured **CRISP-DM** analytical workflow;
+- descriptive, temporal and spatial analysis;
+- and a hybrid **Prophet-LSTM** forecasting strategy.
 
--   Statistical time series forecasting (Prophet)
--   Deep learning models (LSTM)
--   Environmental and temporal data
+The study covers observations from **2019 to mid-2024** and combines citywide analysis with district-level interpretation.
 
-The objective is to combine **interpretability and predictive capacity** within a coherent modelling framework.
+------------------------------------------------------------------------
 
-## 📍 Monitoring stations
+## 🧩 Methodological framework
 
-![](images/Fig_PM25_Stations_Madrid.png){fig-align="center" width="85%"}
+The project adapts **CRISP-DM** to an urban environmental-data workflow integrating data preparation, exploratory analysis, spatial interpretation and forecasting.
 
-**Fig. 1.** Spatial distribution of PM2.5 monitoring stations in Madrid used in the study.
+![](images/Imagen5.png){fig-align="center" width="66%"}
 
-## 🎯 Research motivation
+**Fig. 1.** Adapted CRISP-DM workflow used in the study.
 
-Urban air quality prediction presents several methodological challenges:
+------------------------------------------------------------------------
 
--   Strong temporal dependencies
--   Seasonal patterns
--   Nonlinear dynamics
--   Influence of environmental variables
+## 📈 Main empirical result
 
-Purely statistical models often lack flexibility, while deep learning approaches may reduce interpretability.
+The historical analysis shows an overall reduction in PM2.5 concentrations over the study period, although relevant interannual variability and episodic peaks remain.
 
-This motivates the use of **hybrid modelling strategies**.
+![](images/Imagen11.png){fig-align="center" width="88%"}
 
-## 🧩 Modelling workflow
+**Fig. 2.** Citywide evolution of PM2.5 concentrations in Madrid from 2019 to 2024.
 
-The analytical pipeline follows a structured sequence:
+District-level behaviour, spatial differences and detailed descriptive results are documented in the [analytical notebook](notebook.html).
 
-1.  **Data acquisition and preprocessing** Cleaning, validation, and temporal alignment of PM2.5 data.
+------------------------------------------------------------------------
 
-2.  **Exploratory analysis** Identification of trends, variability, and seasonal patterns.
+## 🤖 Forecasting framework
 
-3.  **Prophet modelling** Decomposition of trend and seasonal components.
+The predictive stage combines **Prophet**, which models trend and seasonal structure, with **LSTM**, which captures nonlinear temporal dependencies.
 
-4.  **LSTM modelling** Learning nonlinear temporal dependencies.
+![](images/Imagen14.png){fig-align="center" width="88%"}
 
-5.  **Hybrid integration** Combining Prophet outputs with LSTM predictions.
+**Fig. 3.** Citywide PM2.5 forecast using the hybrid Prophet-LSTM approach.
 
-## 📈 Forecasting results
+District-level forecasts are available in the [analytical notebook](notebook.html).
 
-![](images/Fig_Forecast_Madrid_Prophet_LSTM.png){fig-align="center" width="90%"}
+------------------------------------------------------------------------
 
-**Fig. 2.** PM2.5 forecasting using the hybrid Prophet–LSTM model, including historical data, observed values, and predicted trend with confidence interval.
+## 📌 Main findings
 
-## 🧭 Analytical approach
+- PM2.5 concentrations show a **general downward trend** from 2019 to mid-2024.
+- Important **year-to-year variability and pollution peaks** remain.
+- PM2.5 patterns differ across monitored districts.
+- The hybrid forecasting framework combines explicit temporal structure with nonlinear sequence modelling.
+- The resulting analysis can support environmental planning and urban decision-making.
 
-The modelling strategy is guided by the following principles:
+------------------------------------------------------------------------
 
--   **Temporal coherence**: preserving chronological structure\
--   **Model complementarity**: combining statistical and deep learning methods\
--   **Reproducibility**: fully script-based implementation\
--   **Interpretability**: maintaining analytical transparency
+## 🔬 Reproducibility
 
-This approach balances methodological rigour and predictive performance.
+The repository preserves:
 
-## 🗂️ Repository structure
+- the original Python analytical scripts;
+- the associated data folder;
+- selected figures from the study;
+- Quarto documentation;
+- and a machine-readable bibliographic reference set.
 
-``` text
+See [Scripts and workflow](scripts.html) for the computational structure.
 
-urban-pm25-forecasting/
-├── docs/                      # GitHub Pages site
-│   ├── index.html
-│   ├── scripts.html
-│   └── notebook.html
-├── data/                      # Processed datasets
-├── images/                    # Figures
-├── scripts/                   # Python scripts
-├── index.qmd
-├── scripts.qmd
-├── notebook.qmd
-├── _quarto.yml
-├── LICENSE
-└── README.md
-```
+------------------------------------------------------------------------
 
-## ⚙️ Technologies
+## 📚 References and citation
 
-| Category        | Tools                             |
-|-----------------|-----------------------------------|
-| Programming     | Python 3.12 · Quarto              |
-| Data            | pandas · numpy                    |
-| Visualisation   | matplotlib · seaborn              |
-| Modelling       | Prophet · TensorFlow/Keras (LSTM) |
-| Reproducibility | Git · GitHub Pages · Zenodo       |
+**Article DOI:** [10.3390/appliedmath4040076](https://doi.org/10.3390/appliedmath4040076)
 
-## 🔁 Reproducibility
+**Zenodo bibliographic reference set:** [10.5281/zenodo.23880803](https://doi.org/10.5281/zenodo.23880803)
 
-All results are fully reproducible:
+> Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).  
+> *Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.*  
+> **AppliedMath, 4**(4), 1428–1452.  
+> https://doi.org/10.3390/appliedmath4040076
 
--   Scripts implement the complete pipeline
-
--   Notebook enables step-by-step execution
-
--   No manual data manipulation
-
--   Figures generated programmatically
-
-The project relies exclusively on **open-source tools and open data**.
-
-## 🎓 Relation to research
-
-This repository supports ongoing work in:
-
--   Urban sustainability
-
--   Environmental data science
-
--   Hybrid predictive modelling
-
-## 📚 Citation
-
-If you use this work, please cite:
-
-> Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).\
-> Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.\
-> *AppliedMath*, 4(4), 1428–1452.\
-> <https://doi.org/10.3390/appliedmath4040076>
-
-## ⚖️ License
-
--   Code: CC BY 4.0
-
--   Data: CC0 (where applicable)
+------------------------------------------------------------------------
 
 ## 📬 Contact
 
-Jesús Cáceres Tello Complutense University of Madrid
+**Jesús Cáceres Tello**  
+Complutense University of Madrid
 
-📧 [jcaceres.academic\@gmail.com](mailto:jcaceres.academic@gmail.com) 📧 [jescacer\@ucm.es](mailto:jescacer@ucm.es)
+📧 [jescacer@ucm.es](mailto:jescacer@ucm.es)  
+📧 [jcaceres.academic@gmail.com](mailto:jcaceres.academic@gmail.com)
 
-⬅️ <https://jcaceres-academic.github.io>
-
-This repository promotes **open, transparent, and reproducible research** in environmental data science.
+⬅️ [Back to Academic Home](https://jcaceres-academic.github.io/)

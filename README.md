@@ -1,75 +1,71 @@
-# PM2.5 Pollution Analysis and Prediction in Madrid
+# Urban PM2.5 Forecasting Framework
 
-Open, reproducible research materials supporting the article:
+**Analysis and Prediction of PM2.5 Pollution in Madrid using CRISP-DM and Prophet-LSTM**
 
-**Analysis and Prediction of PM2.5 Pollution in Madrid: Use of Prophet–LSTM Hybrid Models** *(AppliedMath, 2024)*
+Reproducible research repository associated with the published article in **AppliedMath (2024)**.
 
-## 🔗 Project links
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-black.svg)](https://github.com/jcaceres-academic/urban-pm25-forecasting)
+[![DOI](https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg)](https://doi.org/10.3390/appliedmath4040076)
+[![Zenodo](https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&logoColor=white)](https://doi.org/10.5281/zenodo.23880803)
 
-```         
-🌐 Project page (methodology, results and context)
-https://jcaceres-academic.github.io/urban-pm25-forecasting/
-📘 Reproducible notebook
-https://jcaceres-academic.github.io/urban-pm25-forecasting/notebooks.html
-📄 Published article
-https://doi.org/10.3390/appliedmath4040076
+## Authors
+
+- Jesús Cáceres-Tello
+- José Javier Galán-Hernández
+
+## Overview
+
+This repository contains the original analytical scripts, selected published figures and Quarto documentation associated with the article **“Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.”**
+
+The study combines official Madrid air-quality data, a CRISP-DM workflow, descriptive and spatial analysis, and hybrid Prophet-LSTM forecasting.
+
+## Repository contents
+
+```text
+urban-pm25-forecasting/
+├── images/
+├── scripts/
+│   ├── 01_data_preprocessing.py
+│   ├── 02_spatial_analysis.py
+│   ├── 03_descriptive_analysis.py
+│   ├── 04_trends_by_district.py
+│   ├── 05_districts_pm25_map.py
+│   ├── 06_stations_map.py
+│   ├── 07_hybrid_forecasting.py
+│   ├── 08_district_forecasting.py
+│   └── data/
+├── index.qmd
+├── notebook.qmd
+├── scripts.qmd
+├── references.bib
+├── _quarto.yml
+├── styles.css
+├── LICENSE
+└── README.md
 ```
 
-## 📁 Repository overview
+## Project pages
 
--   docs/ – Rendered Quarto website (GitHub Pages deployment)
--   data/ – Processed datasets (PM2.5 and meteorological variables)
--   scripts/ – Reproducible data processing and modelling pipeline
--   figures/ – Publication-ready figures (PNG / TIFF)
+- **Project overview:** https://jcaceres-academic.github.io/urban-pm25-forecasting/
+- **Analytical notebook:** https://jcaceres-academic.github.io/urban-pm25-forecasting/notebook.html
+- **Scripts and workflow:** https://jcaceres-academic.github.io/urban-pm25-forecasting/scripts.html
 
-## 🧠 Research scope
+## Published article
 
-This repository supports a study on **urban air quality analysis and prediction in Madrid**, focusing on:
+Cáceres-Tello, J., & Galán-Hernández, J. J. (2024).  
+**Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.**  
+*AppliedMath, 4*(4), 1428–1452.
 
--   Temporal analysis of PM2.5 levels (2019–2024)
--   Spatial distribution across monitoring districts
--   Hybrid modelling using *Prophet–LSTM*
--   Integration of meteorological and environmental data
+**Article DOI:** [10.3390/appliedmath4040076](https://doi.org/10.3390/appliedmath4040076)
 
-The approach combines *statistical forecasting and deep learning* to capture both:
+## Bibliographic references
 
--   Seasonal and trend components (Prophet)
--   Long-term dependencies and nonlinear patterns (LSTM)
+The machine-readable reference set associated with this project is archived in Zenodo:
 
-## 🔁 Reproducibility principles
+**Zenodo:** [10.5281/zenodo.23880803](https://doi.org/10.5281/zenodo.23880803)
 
-This project follows principles of:
+This Zenodo identifier refers to the bibliographic reference collection, not to the article DOI.
 
--   Reproducibility by design
--   Transparent data processing
--   Programmatic figure generation
--   Open data integration (Madrid Open Data Portal)
+## Licence
 
-All results presented in the article are generated from the scripts and notebooks included in this repository.
-
-### Data and reproducibility
-
-All datasets and scripts are available in the associated Zenodo repository:
-
-https://doi.org/10.5281/zenodo.19659982
-
-Note: The Zenodo archive contains additional scripts from related research lines.  
-The scripts relevant to this study are those included in this repository and described in the documentation.
-
-## ⚙️ Technologies
-
--   Python 3.12
--   pandas · numpy
--   Prophet
--   TensorFlow / Keras (LSTM)
--   matplotlib · seaborn
--   Quarto (documentation and web deployment)
-
-## 📜 License
-
-Creative Commons Attribution 4.0 (CC BY 4.0)
-
-------------------------------------------------------------------------
-
-➡️ For the full project description, workflow, references, and educational context,\
-see the **project website** linked above.
+Unless otherwise indicated, documentation and reproducible materials are released under **CC BY 4.0**.

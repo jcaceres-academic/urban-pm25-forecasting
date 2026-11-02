@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/scripts.html</loc>
-    <lastmod>2026-04-20T19:20:23.941Z</lastmod>
+    <loc>https://jcaceres-academic.github.io/urban-pm25-prophet-lstm/index.html</loc>
+    <lastmod>2026-11-02T11:32:48.340Z</lastmod>
   </url>
   <url>
-    <loc>https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/index.html</loc>
-    <lastmod>2026-11-01T18:46:01.443Z</lastmod>
+    <loc>https://jcaceres-academic.github.io/urban-pm25-prophet-lstm/notebook.html</loc>
+    <lastmod>2026-11-02T11:32:08.441Z</lastmod>
   </url>
   <url>
-    <loc>https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/notebook.html</loc>
-    <lastmod>2026-04-20T19:19:51.208Z</lastmod>
+    <loc>https://jcaceres-academic.github.io/urban-pm25-prophet-lstm/scripts.html</loc>
+    <lastmod>2026-11-02T11:29:53.647Z</lastmod>
   </url>
 </urlset>

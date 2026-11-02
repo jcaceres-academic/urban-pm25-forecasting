@@ -6,11 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Jesús Cáceres Tello">
-<meta name="author" content="José Javier Galán Hernández">
-<meta name="dcterms.date" content="2024-01-01">
 
-<title>PM2.5 Pollution Analysis and Prediction in Madrid – Urban PM2.5 Imbalance Evaluation</title>
+<title>Analysis and Prediction of PM2.5 Pollution in Madrid – Urban PM2.5 Prophet-LSTM</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -97,7 +94,7 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Scripts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-imbalance-evaluation" target="_blank"> <i class="bi bi-github" role="img">
+    <a class="nav-link" href="https://github.com/jcaceres-academic/urban-pm25-prophet-lstm" target="_blank"> <i class="bi bi-github" role="img">
 </i> 
 <span class="menu-text">GitHub</span></a>
   </li>  
@@ -118,17 +115,12 @@ ul.task-list li input[type="checkbox"] {
   <ul class="collapse">
   <li><a href="#direct-access" id="toc-direct-access" class="nav-link active" data-scroll-target="#direct-access">🔗 Direct access</a></li>
   <li><a href="#overview" id="toc-overview" class="nav-link" data-scroll-target="#overview">🧠 Overview</a></li>
-  <li><a href="#monitoring-stations" id="toc-monitoring-stations" class="nav-link" data-scroll-target="#monitoring-stations">📍 Monitoring stations</a></li>
-  <li><a href="#research-motivation" id="toc-research-motivation" class="nav-link" data-scroll-target="#research-motivation">🎯 Research motivation</a></li>
-  <li><a href="#modelling-workflow" id="toc-modelling-workflow" class="nav-link" data-scroll-target="#modelling-workflow">🧩 Modelling workflow</a></li>
-  <li><a href="#forecasting-results" id="toc-forecasting-results" class="nav-link" data-scroll-target="#forecasting-results">📈 Forecasting results</a></li>
-  <li><a href="#analytical-approach" id="toc-analytical-approach" class="nav-link" data-scroll-target="#analytical-approach">🧭 Analytical approach</a></li>
-  <li><a href="#repository-structure" id="toc-repository-structure" class="nav-link" data-scroll-target="#repository-structure">🗂️ Repository structure</a></li>
-  <li><a href="#technologies" id="toc-technologies" class="nav-link" data-scroll-target="#technologies">⚙️ Technologies</a></li>
-  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">🔁 Reproducibility</a></li>
-  <li><a href="#relation-to-research" id="toc-relation-to-research" class="nav-link" data-scroll-target="#relation-to-research">🎓 Relation to research</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">📚 Citation</a></li>
-  <li><a href="#license" id="toc-license" class="nav-link" data-scroll-target="#license">⚖️ License</a></li>
+  <li><a href="#methodological-framework" id="toc-methodological-framework" class="nav-link" data-scroll-target="#methodological-framework">🧩 Methodological framework</a></li>
+  <li><a href="#main-empirical-result" id="toc-main-empirical-result" class="nav-link" data-scroll-target="#main-empirical-result">📈 Main empirical result</a></li>
+  <li><a href="#forecasting-framework" id="toc-forecasting-framework" class="nav-link" data-scroll-target="#forecasting-framework">🤖 Forecasting framework</a></li>
+  <li><a href="#main-findings" id="toc-main-findings" class="nav-link" data-scroll-target="#main-findings">📌 Main findings</a></li>
+  <li><a href="#reproducibility" id="toc-reproducibility" class="nav-link" data-scroll-target="#reproducibility">🔬 Reproducibility</a></li>
+  <li><a href="#references-and-citation" id="toc-references-and-citation" class="nav-link" data-scroll-target="#references-and-citation">📚 References and citation</a></li>
   <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">📬 Contact</a></li>
   </ul>
 </nav>
@@ -142,42 +134,15 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">PM2.5 Pollution Analysis and Prediction in Madrid</h1>
-<p class="subtitle lead">Analysis and Prediction of PM2.5 Pollution in Madrid: Use of Prophet–LSTM Hybrid Models</p>
+<h1 class="title">Analysis and Prediction of PM2.5 Pollution in Madrid</h1>
+<p class="subtitle lead">CRISP-DM and hybrid Prophet-LSTM models for urban air-quality forecasting</p>
 </div>
 
 
-<div class="quarto-title-meta-author">
-  <div class="quarto-title-meta-heading">Authors</div>
-  <div class="quarto-title-meta-heading">Affiliations</div>
-  
-    <div class="quarto-title-meta-contents">
-    <p class="author">Jesús Cáceres Tello <a href="mailto:jcaceres.academic@gmail.com" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            Complutense University of Madrid
-          </p>
-      </div>
-    <div class="quarto-title-meta-contents">
-    <p class="author">José Javier Galán Hernández <a href="mailto:jose.galan@uah.es" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-  </div>
-  <div class="quarto-title-meta-contents">
-        <p class="affiliation">
-            University of Alcalá
-          </p>
-      </div>
-  </div>
 
 <div class="quarto-title-meta">
 
-      
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">January 1, 2024</p>
-    </div>
-  </div>
+    
   
     
   </div>
@@ -187,176 +152,110 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p><a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" class="img-fluid" alt="License: CC BY 4.0"></a> <a href="https://doi.org/10.3390/appliedmath4040076"><img src="https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg" class="img-fluid" alt="DOI"></a> <a href="https://doi.org/10.5281/zenodo.19659982"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.19659982.svg" class="img-fluid" alt="Zenodo DOI"></a></p>
+<p><a href="https://creativecommons.org/licenses/by/4.0/"><img src="https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg" class="img-fluid" alt="License: CC BY 4.0"></a> <a href="https://quarto.org/"><img src="https://img.shields.io/badge/Rendered_with-Quarto-4A90E2.svg" class="img-fluid" alt="Rendered with Quarto"></a> <a href="https://github.com/jcaceres-academic/urban-pm25-forecasting"><img src="https://img.shields.io/badge/GitHub-Repository-black.svg" class="img-fluid" alt="GitHub Repo"></a> <a href="https://doi.org/10.3390/appliedmath4040076"><img src="https://img.shields.io/badge/DOI-10.3390%2Fappliedmath4040076-blue.svg" class="img-fluid" alt="DOI"></a> <a href="https://doi.org/10.5281/zenodo.23880803"><img src="https://img.shields.io/badge/Zenodo-10.5281%2Fzenodo.23880803-1682D4?logo=zenodo&amp;logoColor=white" class="img-fluid" alt="Zenodo"></a></p>
+<hr>
 <section id="direct-access" class="level2">
 <h2 class="anchored" data-anchor-id="direct-access">🔗 Direct access</h2>
 <ul>
-<li>🧪 <a href="scripts.html">Scripts</a></li>
-<li>💻 <a href="notebook.html">Notebook</a></li>
-<li>📄 <a href="https://doi.org/10.3390/appliedmath4040076">Article</a></li>
+<li>📄 <a href="https://doi.org/10.3390/appliedmath4040076">Published article</a></li>
+<li>💻 <a href="notebook.html">Analytical notebook</a></li>
+<li>🧪 <a href="scripts.html">Scripts and workflow</a></li>
+<li>💾 <a href="https://github.com/jcaceres-academic/urban-pm25-forecasting">GitHub repository</a></li>
+<li>📚 <a href="https://doi.org/10.5281/zenodo.23880803">Bibliographic reference set</a></li>
 </ul>
+<hr>
 </section>
 <section id="overview" class="level2">
 <h2 class="anchored" data-anchor-id="overview">🧠 Overview</h2>
-<p>This repository provides a <strong>fully reproducible implementation</strong> of the hybrid modelling framework presented in:</p>
-<p><strong>Analysis and Prediction of PM2.5 Pollution in Madrid using Prophet–LSTM hybrid models</strong></p>
-<p>The project integrates:</p>
+<p>This repository contains the reproducible materials associated with the article <strong>“Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.”</strong></p>
+<p>The study analyses urban PM2.5 pollution in Madrid using:</p>
 <ul>
-<li>Statistical time series forecasting (Prophet)</li>
-<li>Deep learning models (LSTM)</li>
-<li>Environmental and temporal data</li>
+<li>official open data from the Madrid City Council;</li>
+<li>a structured <strong>CRISP-DM</strong> analytical workflow;</li>
+<li>descriptive, temporal and spatial analysis;</li>
+<li>and a hybrid <strong>Prophet-LSTM</strong> forecasting strategy.</li>
 </ul>
-<p>The objective is to combine <strong>interpretability and predictive capacity</strong> within a coherent modelling framework.</p>
+<p>The study covers observations from <strong>2019 to mid-2024</strong> and combines citywide analysis with district-level interpretation.</p>
+<hr>
 </section>
-<section id="monitoring-stations" class="level2">
-<h2 class="anchored" data-anchor-id="monitoring-stations">📍 Monitoring stations</h2>
+<section id="methodological-framework" class="level2">
+<h2 class="anchored" data-anchor-id="methodological-framework">🧩 Methodological framework</h2>
+<p>The project adapts <strong>CRISP-DM</strong> to an urban environmental-data workflow integrating data preparation, exploratory analysis, spatial interpretation and forecasting.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Fig_PM25_Stations_Madrid.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:85.0%"></p>
+<p><img src="images/Imagen5.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:66.0%"></p>
 </figure>
 </div>
-<p><strong>Fig. 1.</strong> Spatial distribution of PM2.5 monitoring stations in Madrid used in the study.</p>
+<p><strong>Fig. 1.</strong> Adapted CRISP-DM workflow used in the study.</p>
+<hr>
 </section>
-<section id="research-motivation" class="level2">
-<h2 class="anchored" data-anchor-id="research-motivation">🎯 Research motivation</h2>
-<p>Urban air quality prediction presents several methodological challenges:</p>
-<ul>
-<li>Strong temporal dependencies</li>
-<li>Seasonal patterns</li>
-<li>Nonlinear dynamics</li>
-<li>Influence of environmental variables</li>
-</ul>
-<p>Purely statistical models often lack flexibility, while deep learning approaches may reduce interpretability.</p>
-<p>This motivates the use of <strong>hybrid modelling strategies</strong>.</p>
-</section>
-<section id="modelling-workflow" class="level2">
-<h2 class="anchored" data-anchor-id="modelling-workflow">🧩 Modelling workflow</h2>
-<p>The analytical pipeline follows a structured sequence:</p>
-<ol type="1">
-<li><p><strong>Data acquisition and preprocessing</strong> Cleaning, validation, and temporal alignment of PM2.5 data.</p></li>
-<li><p><strong>Exploratory analysis</strong> Identification of trends, variability, and seasonal patterns.</p></li>
-<li><p><strong>Prophet modelling</strong> Decomposition of trend and seasonal components.</p></li>
-<li><p><strong>LSTM modelling</strong> Learning nonlinear temporal dependencies.</p></li>
-<li><p><strong>Hybrid integration</strong> Combining Prophet outputs with LSTM predictions.</p></li>
-</ol>
-</section>
-<section id="forecasting-results" class="level2">
-<h2 class="anchored" data-anchor-id="forecasting-results">📈 Forecasting results</h2>
+<section id="main-empirical-result" class="level2">
+<h2 class="anchored" data-anchor-id="main-empirical-result">📈 Main empirical result</h2>
+<p>The historical analysis shows an overall reduction in PM2.5 concentrations over the study period, although relevant interannual variability and episodic peaks remain.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/Fig_Forecast_Madrid_Prophet_LSTM.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:90.0%"></p>
+<p><img src="images/Imagen11.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%"></p>
 </figure>
 </div>
-<p><strong>Fig. 2.</strong> PM2.5 forecasting using the hybrid Prophet–LSTM model, including historical data, observed values, and predicted trend with confidence interval.</p>
+<p><strong>Fig. 2.</strong> Citywide evolution of PM2.5 concentrations in Madrid from 2019 to 2024.</p>
+<p>District-level behaviour, spatial differences and detailed descriptive results are documented in the <a href="notebook.html">analytical notebook</a>.</p>
+<hr>
 </section>
-<section id="analytical-approach" class="level2">
-<h2 class="anchored" data-anchor-id="analytical-approach">🧭 Analytical approach</h2>
-<p>The modelling strategy is guided by the following principles:</p>
+<section id="forecasting-framework" class="level2">
+<h2 class="anchored" data-anchor-id="forecasting-framework">🤖 Forecasting framework</h2>
+<p>The predictive stage combines <strong>Prophet</strong>, which models trend and seasonal structure, with <strong>LSTM</strong>, which captures nonlinear temporal dependencies.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Imagen14.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:88.0%"></p>
+</figure>
+</div>
+<p><strong>Fig. 3.</strong> Citywide PM2.5 forecast using the hybrid Prophet-LSTM approach.</p>
+<p>District-level forecasts are available in the <a href="notebook.html">analytical notebook</a>.</p>
+<hr>
+</section>
+<section id="main-findings" class="level2">
+<h2 class="anchored" data-anchor-id="main-findings">📌 Main findings</h2>
 <ul>
-<li><strong>Temporal coherence</strong>: preserving chronological structure<br>
-</li>
-<li><strong>Model complementarity</strong>: combining statistical and deep learning methods<br>
-</li>
-<li><strong>Reproducibility</strong>: fully script-based implementation<br>
-</li>
-<li><strong>Interpretability</strong>: maintaining analytical transparency</li>
+<li>PM2.5 concentrations show a <strong>general downward trend</strong> from 2019 to mid-2024.</li>
+<li>Important <strong>year-to-year variability and pollution peaks</strong> remain.</li>
+<li>PM2.5 patterns differ across monitored districts.</li>
+<li>The hybrid forecasting framework combines explicit temporal structure with nonlinear sequence modelling.</li>
+<li>The resulting analysis can support environmental planning and urban decision-making.</li>
 </ul>
-<p>This approach balances methodological rigour and predictive performance.</p>
-</section>
-<section id="repository-structure" class="level2">
-<h2 class="anchored" data-anchor-id="repository-structure">🗂️ Repository structure</h2>
-<pre class="text"><code>
-urban-pm25-forecasting/
-├── docs/                      # GitHub Pages site
-│   ├── index.html
-│   ├── scripts.html
-│   └── notebook.html
-├── data/                      # Processed datasets
-├── images/                    # Figures
-├── scripts/                   # Python scripts
-├── index.qmd
-├── scripts.qmd
-├── notebook.qmd
-├── _quarto.yml
-├── LICENSE
-└── README.md</code></pre>
-</section>
-<section id="technologies" class="level2">
-<h2 class="anchored" data-anchor-id="technologies">⚙️ Technologies</h2>
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th>Category</th>
-<th>Tools</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>Programming</td>
-<td>Python 3.12 · Quarto</td>
-</tr>
-<tr class="even">
-<td>Data</td>
-<td>pandas · numpy</td>
-</tr>
-<tr class="odd">
-<td>Visualisation</td>
-<td>matplotlib · seaborn</td>
-</tr>
-<tr class="even">
-<td>Modelling</td>
-<td>Prophet · TensorFlow/Keras (LSTM)</td>
-</tr>
-<tr class="odd">
-<td>Reproducibility</td>
-<td>Git · GitHub Pages · Zenodo</td>
-</tr>
-</tbody>
-</table>
+<hr>
 </section>
 <section id="reproducibility" class="level2">
-<h2 class="anchored" data-anchor-id="reproducibility">🔁 Reproducibility</h2>
-<p>All results are fully reproducible:</p>
+<h2 class="anchored" data-anchor-id="reproducibility">🔬 Reproducibility</h2>
+<p>The repository preserves:</p>
 <ul>
-<li><p>Scripts implement the complete pipeline</p></li>
-<li><p>Notebook enables step-by-step execution</p></li>
-<li><p>No manual data manipulation</p></li>
-<li><p>Figures generated programmatically</p></li>
+<li>the original Python analytical scripts;</li>
+<li>the associated data folder;</li>
+<li>selected figures from the study;</li>
+<li>Quarto documentation;</li>
+<li>and a machine-readable bibliographic reference set.</li>
 </ul>
-<p>The project relies exclusively on <strong>open-source tools and open data</strong>.</p>
+<p>See <a href="scripts.html">Scripts and workflow</a> for the computational structure.</p>
+<hr>
 </section>
-<section id="relation-to-research" class="level2">
-<h2 class="anchored" data-anchor-id="relation-to-research">🎓 Relation to research</h2>
-<p>This repository supports ongoing work in:</p>
-<ul>
-<li><p>Urban sustainability</p></li>
-<li><p>Environmental data science</p></li>
-<li><p>Hybrid predictive modelling</p></li>
-</ul>
-</section>
-<section id="citation" class="level2">
-<h2 class="anchored" data-anchor-id="citation">📚 Citation</h2>
-<p>If you use this work, please cite:</p>
+<section id="references-and-citation" class="level2">
+<h2 class="anchored" data-anchor-id="references-and-citation">📚 References and citation</h2>
+<p><strong>Article DOI:</strong> <a href="https://doi.org/10.3390/appliedmath4040076">10.3390/appliedmath4040076</a></p>
+<p><strong>Zenodo bibliographic reference set:</strong> <a href="https://doi.org/10.5281/zenodo.23880803">10.5281/zenodo.23880803</a></p>
 <blockquote class="blockquote">
 <p>Cáceres-Tello, J., &amp; Galán-Hernández, J. J. (2024).<br>
-Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–LSTM Hybrid Models.<br>
-<em>AppliedMath</em>, 4(4), 1428–1452.<br>
-<a href="https://doi.org/10.3390/appliedmath4040076" class="uri">https://doi.org/10.3390/appliedmath4040076</a></p>
+<em>Analysis and Prediction of PM2.5 Pollution in Madrid: The Use of Prophet–Long Short-Term Memory Hybrid Models.</em><br>
+<strong>AppliedMath, 4</strong>(4), 1428–1452.<br>
+https://doi.org/10.3390/appliedmath4040076</p>
 </blockquote>
-</section>
-<section id="license" class="level2">
-<h2 class="anchored" data-anchor-id="license">⚖️ License</h2>
-<ul>
-<li><p>Code: CC BY 4.0</p></li>
-<li><p>Data: CC0 (where applicable)</p></li>
-</ul>
+<hr>
 </section>
 <section id="contact" class="level2">
 <h2 class="anchored" data-anchor-id="contact">📬 Contact</h2>
-<p>Jesús Cáceres Tello Complutense University of Madrid</p>
-<p>📧 <a href="mailto:jcaceres.academic@gmail.com">jcaceres.academic@gmail.com</a> 📧 <a href="mailto:jescacer@ucm.es">jescacer@ucm.es</a></p>
-<p>⬅️ <a href="https://jcaceres-academic.github.io" class="uri">https://jcaceres-academic.github.io</a></p>
-<p>This repository promotes <strong>open, transparent, and reproducible research</strong> in environmental data science.</p>
+<p><strong>Jesús Cáceres Tello</strong><br>
+Complutense University of Madrid</p>
+<p>📧 <a href="mailto:jescacer@ucm.es">jescacer@ucm.es</a><br>
+📧 <a href="mailto:jcaceres.academic@gmail.com">jcaceres.academic@gmail.com</a></p>
+<p>⬅️ <a href="https://jcaceres-academic.github.io/">Back to Academic Home</a></p>
 
 
 </section>
@@ -454,7 +353,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-imbalance-evaluation\/");
+      var filterRegex = new RegExp("https:\/\/jcaceres-academic\.github\.io\/urban-pm25-prophet-lstm\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

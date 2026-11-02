@@ -1,1 +1,1 @@
-Sitemap: https://jcaceres-academic.github.io/urban-pm25-imbalance-evaluation/sitemap.xml
+Sitemap: https://jcaceres-academic.github.io/urban-pm25-prophet-lstm/sitemap.xml
